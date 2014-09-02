@@ -1,0 +1,33 @@
+//
+// Prefix header for all source files of the 'IntegratingFacebookTutorial' target in the 'IntegratingFacebookTutorial' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+//    #import <CoreText/CoreText.h>
+    #import <QuartzCore/QuartzCore.h>
+//    #import <SKMaps/SKMaps.h>
+
+    #import "NSString+Additions.h"
+    #import "NSArray+Additions.h"
+    #import "NSMutableDictionary+Additions.h"
+    #import "NSDictionary+Additions.h"
+    #import "NSDate+Additions.h"
+    #import "NSNotificationCenter+Additions.h"
+
+    #import "UIColor+Additions.h"
+    #import "UIImage+scaled.h"
+    #import "UIView+Additions.h"
+    #import "UIScrollView+Additions.h"
+    #import "UIDevice+Additions.h"
+    #import "UIApplication+Additions.h"
+    #import "UINavigationItem+Additions.h"
+    #import "NSObject+Additions.h"
+#endif
