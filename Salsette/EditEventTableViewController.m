@@ -7,10 +7,11 @@
 //
 
 #import "EditEventTableViewController.h"
-
+#import "TWTSideMenuViewController.h"
 #import "ParseManager.h"
 #import "DefaultTableViewCell.h"
 
+#import "PFObjectTableViewController.h"
 
 @interface EditEventTableViewController ()
 
@@ -38,8 +39,14 @@
     
     self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
     
-    UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
-    self.navigationItem.leftBarButtonItem = openItem;
+    if (self.presentingViewController) {
+        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
+        self.navigationItem.leftBarButtonItem = openItem;
+    } else {
+        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Open" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
+        self.navigationItem.leftBarButtonItem = openItem;
+    }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -56,6 +63,7 @@
             weakSelf.tableView.tableHeaderView = imgView;
         }];
     }
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -155,7 +163,7 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
@@ -163,21 +171,39 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
     
-    // Pass the selected object to the new view controller.
+    id obj = [self.event objectForIndex:indexPath];
+//    if ([obj isKindOfClass:[NSString class]]) {
+//        cell.detailLabel.text = obj;
+//    }
+//    if ([obj isKindOfClass:[NSNumber class]]) {
+//        cell.detailLabel.text = [obj stringValue];
+//    }
+//    if ([obj isKindOfClass:[NSDate class]]) {
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        [formatter setDateStyle:NSDateFormatterShortStyle];
+//        [formatter setTimeStyle:NSDateFormatterShortStyle];
+//        cell.detailLabel.text = [formatter stringFromDate:obj];
+//    }
     
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    if ([obj isKindOfClass:[PFVenue class]]) {
+        PFObjectTableViewController *detailViewController = [[PFObjectTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+        detailViewController.object = obj;
+        [self.navigationController pushViewController:detailViewController animated:YES];
+    }
 }
-*/
 
 
-- (void)openButtonPressed
+- (void)cancelButtonPressed
 {
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+
+- (void)openButtonPressed
+{
+    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
 }
 
 - (void)startButtonPressed {

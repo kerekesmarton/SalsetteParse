@@ -54,6 +54,16 @@ static NSArray *pfLocalisedDescriptions;
     return self.name;
 }
 
+-(NSArray *)dataSourceCount {
+    
+    return @[fbProperties];
+}
+
+-(NSArray *)descriptionDataSourceCount {
+    
+    return @[fbLocalisedDescriptions];
+}
+
 +(void)queryForID:(NSNumber *)identifier completion:(void (^)(id, NSError *))block {
     
     PFQuery *query = [self query];

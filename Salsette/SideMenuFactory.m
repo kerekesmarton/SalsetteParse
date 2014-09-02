@@ -12,7 +12,7 @@
 
 @implementation SideMenuFactory
 
-+ (NSArray *)menuItemsWithUser:(PFUser *)user event:(void (^)(SideMenuItem *))event{
++ (NSArray *)menuItemsWithUser:(PFUser *)user event:(void (^)(SideMenuItem *, NSIndexPath *))event{
     
     return [SideMenuGroup itemsWithUser:user completion:event];
 }

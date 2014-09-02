@@ -23,10 +23,10 @@ typedef enum GroupEvent {
 
 @interface SideMenuGroup : NSObject
 
-@property (nonatomic, strong) NSString  *groupTitle;
-@property (nonatomic, strong) NSArray   *groupItems;
+@property (nonatomic, strong) NSString          *groupTitle;
+@property (nonatomic, strong) NSMutableArray    *groupItems;
 
-+(NSArray *)itemsWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) completion;
++(NSArray *)itemsWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
 
 /*
  - main group

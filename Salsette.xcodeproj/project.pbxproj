@@ -65,9 +65,10 @@
 		3B7E13CC19B0C51C00B79325 /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E13B519B0C51C00B79325 /* UIScrollView+Additions.m */; };
 		3B7E13CD19B0C51C00B79325 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E13B719B0C51C00B79325 /* UIView+Additions.m */; };
 		3B7E13CE19B0C51C00B79325 /* UIView+SKRoundedCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E13B919B0C51C00B79325 /* UIView+SKRoundedCorners.m */; };
-		3B87531219B5E4CF00C4E40C /* VenueTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B87531019B5E4CF00C4E40C /* VenueTableViewController.m */; };
-		3B87531319B5E4CF00C4E40C /* VenueTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B87531119B5E4CF00C4E40C /* VenueTableViewController.xib */; };
+		3B87531219B5E4CF00C4E40C /* PFObjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B87531019B5E4CF00C4E40C /* PFObjectTableViewController.m */; };
+		3B87531319B5E4CF00C4E40C /* PFObjectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B87531119B5E4CF00C4E40C /* PFObjectTableViewController.xib */; };
 		3B87531719B5E5BE00C4E40C /* DefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B87531619B5E5BE00C4E40C /* DefaultTableViewCell.m */; };
+		3B87531E19B6030800C4E40C /* database.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B87531D19B6030800C4E40C /* database.png */; };
 		3B88C83219B07A4300C30457 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B88C82C19B07A4300C30457 /* Icon.png */; };
 		3B88C83319B07A4300C30457 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B88C82D19B07A4300C30457 /* Icon@2x.png */; };
 		3B88C83419B07A4300C30457 /* login-button-small-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B88C82E19B07A4300C30457 /* login-button-small-pressed.png */; };
@@ -200,11 +201,12 @@
 		3B7E13B719B0C51C00B79325 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		3B7E13B819B0C51C00B79325 /* UIView+SKRoundedCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SKRoundedCorners.h"; sourceTree = "<group>"; };
 		3B7E13B919B0C51C00B79325 /* UIView+SKRoundedCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SKRoundedCorners.m"; sourceTree = "<group>"; };
-		3B87530F19B5E4CF00C4E40C /* VenueTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueTableViewController.h; sourceTree = "<group>"; };
-		3B87531019B5E4CF00C4E40C /* VenueTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueTableViewController.m; sourceTree = "<group>"; };
-		3B87531119B5E4CF00C4E40C /* VenueTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VenueTableViewController.xib; sourceTree = "<group>"; };
+		3B87530F19B5E4CF00C4E40C /* PFObjectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFObjectTableViewController.h; sourceTree = "<group>"; };
+		3B87531019B5E4CF00C4E40C /* PFObjectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFObjectTableViewController.m; sourceTree = "<group>"; };
+		3B87531119B5E4CF00C4E40C /* PFObjectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFObjectTableViewController.xib; sourceTree = "<group>"; };
 		3B87531519B5E5BE00C4E40C /* DefaultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTableViewCell.h; sourceTree = "<group>"; };
 		3B87531619B5E5BE00C4E40C /* DefaultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTableViewCell.m; sourceTree = "<group>"; };
+		3B87531D19B6030800C4E40C /* database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = database.png; sourceTree = "<group>"; };
 		3B88C82C19B07A4300C30457 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		3B88C82D19B07A4300C30457 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		3B88C82E19B07A4300C30457 /* login-button-small-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-button-small-pressed.png"; sourceTree = "<group>"; };
@@ -335,7 +337,7 @@
 				3B69170D199CD1B5005629CE /* AppDelegate.m */,
 				3B9F695419B499FD00230B03 /* Parse Logic and Data Models */,
 				3B87531819B5E5C300C4E40C /* UIElements */,
-				3B87531419B5E4D600C4E40C /* Venue */,
+				3B87531419B5E4D600C4E40C /* Viewer */,
 				3B3012B519B09FC500BE67FB /* Events */,
 				3B59B0E019AF345B00C04A97 /* Layout */,
 				3B691869199CFB1C005629CE /* Account */,
@@ -456,14 +458,14 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
-		3B87531419B5E4D600C4E40C /* Venue */ = {
+		3B87531419B5E4D600C4E40C /* Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				3B87530F19B5E4CF00C4E40C /* VenueTableViewController.h */,
-				3B87531019B5E4CF00C4E40C /* VenueTableViewController.m */,
-				3B87531119B5E4CF00C4E40C /* VenueTableViewController.xib */,
+				3B87530F19B5E4CF00C4E40C /* PFObjectTableViewController.h */,
+				3B87531019B5E4CF00C4E40C /* PFObjectTableViewController.m */,
+				3B87531119B5E4CF00C4E40C /* PFObjectTableViewController.xib */,
 			);
-			name = Venue;
+			name = Viewer;
 			sourceTree = "<group>";
 		};
 		3B87531819B5E5C300C4E40C /* UIElements */ = {
@@ -480,6 +482,7 @@
 			children = (
 				3B88C83819B07B3500C30457 /* world.png */,
 				3B88C83A19B07B5000C30457 /* calendar.png */,
+				3B87531D19B6030800C4E40C /* database.png */,
 				3B88C83C19B07B6D00C30457 /* user_male-128.png */,
 				3B88C83E19B07B8500C30457 /* user_female2-128.png */,
 				3B3012AE19B09F8900BE67FB /* favourite_place.png */,
@@ -633,7 +636,7 @@
 				3B3012C219B0A73000BE67FB /* EditEventTableViewController.xib in Resources */,
 				3B88C83619B07A4300C30457 /* login-button-small.png in Resources */,
 				3B691732199CD1B5005629CE /* TableHeaderView.xib in Resources */,
-				3B87531319B5E4CF00C4E40C /* VenueTableViewController.xib in Resources */,
+				3B87531319B5E4CF00C4E40C /* PFObjectTableViewController.xib in Resources */,
 				3B88C83919B07B3500C30457 /* world.png in Resources */,
 				3B3012A519B0940600BE67FB /* SideMenuCollectionViewCell.xib in Resources */,
 				3B88C83B19B07B5000C30457 /* calendar.png in Resources */,
@@ -641,6 +644,7 @@
 				3B691734199CD1B5005629CE /* UserDetailsViewController.xib in Resources */,
 				3B88C83519B07A4300C30457 /* login-button-small-pressed@2x.png in Resources */,
 				3B69186E199CFF0A005629CE /* AccountDetailsTableViewController.xib in Resources */,
+				3B87531E19B6030800C4E40C /* database.png in Resources */,
 				3B88C83F19B07B8500C30457 /* user_female2-128.png in Resources */,
 				3B88C83D19B07B6D00C30457 /* user_male-128.png in Resources */,
 				3B88C83419B07A4300C30457 /* login-button-small-pressed.png in Resources */,
@@ -702,7 +706,7 @@
 				3B59B0E719AF346B00C04A97 /* TWTSideMenuViewController.m in Sources */,
 				3B691840199CD486005629CE /* AFHTTPSessionManager.m in Sources */,
 				3B7E13C919B0C51C00B79325 /* UIDevice+Additions.m in Sources */,
-				3B87531219B5E4CF00C4E40C /* VenueTableViewController.m in Sources */,
+				3B87531219B5E4CF00C4E40C /* PFObjectTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -801,7 +805,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Salsette;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -823,7 +827,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Salsette;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

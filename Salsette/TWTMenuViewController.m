@@ -9,7 +9,7 @@
 #import "TWTMenuViewController.h"
 #import "TWTMainViewController.h"
 #import "TWTSideMenuViewController.h"
-
+#import "EditEventTableViewController.h"
 #import "SideMenuGroup.h"
 #import "SideMenuItem.h"
 
@@ -58,6 +58,17 @@
     [self.collectionView reloadData];
 }
 
+- (void)addItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSMutableArray *section = [[self.dataSource objectAtIndex:indexPath.section] mutableCopy];
+    
+    [section insertObject:item atIndex:indexPath.row];
+    
+    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:section];
+    
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+}
+
 - (void)closeButtonPressed
 {
     [self.sideMenuViewController closeMenuAnimated:YES completion:nil];
@@ -75,17 +86,20 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    SideMenuGroup *group = [self.dataSource objectAtIndex:section];
+//    SideMenuGroup *group = [self.dataSource objectAtIndex:section];
+    NSArray *group = [self.dataSource objectAtIndex:section];
+//    SideMenuItem  *item = [group objectAtIndex:indexPath.row];
     
-    return group.groupItems.count;
+    return group.count;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"cell";
     
-    SideMenuGroup *group = [self.dataSource objectAtIndex:indexPath.section];
-    SideMenuItem  *item = [group.groupItems objectAtIndex:indexPath.row];
+//    SideMenuGroup *group = [self.dataSource objectAtIndex:indexPath.section];
+    NSArray *group = [self.dataSource objectAtIndex:indexPath.section];
+    SideMenuItem  *item = [group objectAtIndex:indexPath.row];
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
@@ -97,11 +111,18 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    SideMenuGroup *group = [self.dataSource objectAtIndex:indexPath.section];
-    SideMenuItem  *item = [group.groupItems objectAtIndex:indexPath.row];
+//    SideMenuGroup *group = [self.dataSource objectAtIndex:indexPath.section];
+    NSArray *group = [self.dataSource objectAtIndex:indexPath.section];
+    SideMenuItem  *item = [group objectAtIndex:indexPath.row];
+    id viewController = [item.viewControllerClass new];
+    if ([viewController isKindOfClass:[EditEventTableViewController class]]) {
+        
+        EditEventTableViewController *edit = viewController;
+        edit.event = (PFEvent *)item.itemObject;
+    }
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     
-    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController:[item.viewControllerClass new]];
-    [self.sideMenuViewController setMainViewController:controller animated:YES closeMenu:YES];
+    [self.sideMenuViewController setMainViewController:navigationController animated:YES closeMenu:YES];
 }
 
 @end

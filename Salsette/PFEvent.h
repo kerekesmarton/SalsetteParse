@@ -40,15 +40,11 @@
 @property (nonatomic, strong) NSNumber  *secondaryStyle;//secondary dance style
 
 
-//data processing, order, etc
-- (NSArray *)dataSourceCount;
-- (id)objectForIndex:(NSIndexPath *)indexPath;
-- (NSString *)keyForIndex:(NSIndexPath *)indexPath;
-
-
 //references//parse only
 @property (nonatomic, strong) PFUser    *pfUser;        // relationship to fetch for
 @property (nonatomic, strong) NSNumber  *venueID;
 @property (nonatomic, strong) NSNumber  *ownerID;
+
+- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
 
 @end

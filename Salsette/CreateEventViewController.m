@@ -49,7 +49,7 @@
 }
 - (IBAction)goButtonPressed:(id)sender {
     
-    self.eventLinkTextField.text = @"https://www.facebook.com/events/294163667421533/?ref=2&ref_dashboard_filter=upcoming";
+    self.eventLinkTextField.text = @"https://www.facebook.com/events/462430333854975/";
     if (!self.eventLinkTextField.text) {
         return;
     }

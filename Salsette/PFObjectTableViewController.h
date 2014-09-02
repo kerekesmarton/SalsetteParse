@@ -10,8 +10,8 @@
 
 #import "PFVenue.h"
 
-@interface VenueTableViewController : UITableViewController
+@interface PFObjectTableViewController : UITableViewController
 
-@property (nonatomic, strong) PFVenue *venue;
+@property (nonatomic, strong) MyPFObject *object;
 
 @end

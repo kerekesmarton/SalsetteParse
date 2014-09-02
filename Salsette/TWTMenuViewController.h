@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class SideMenuItem;
 @interface TWTMenuViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 - (void)reload;
+- (void)addItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath;
 
 @end

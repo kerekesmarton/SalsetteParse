@@ -101,31 +101,14 @@ static NSArray *pfLocalisedDescriptions;
 
 #pragma mark - Human readable strings, parsing, managing indexes
 
-- (id)objectForIndex:(NSIndexPath *)indexPath {
-    
-    NSArray *data = [self dataSourceCount];
-    
-    NSArray *section = data[indexPath.section];
-
-    id obj = section[indexPath.row];
-    
-    return self[obj];
-}
-
-- (NSString *)keyForIndex:(NSIndexPath *)indexPath {
-    
-    NSArray *data = @[fbLocalisedDescriptions,pfLocalisedDescriptions];
-    
-    NSArray *section = data[indexPath.section];
-    
-    id obj = section[indexPath.row];
-    
-    return obj;
-}
-
 -(NSArray *)dataSourceCount {
     
     return @[fbProperties,pfProperties];
+}
+
+-(NSArray *)descriptionDataSourceCount {
+    
+    return @[fbLocalisedDescriptions,pfLocalisedDescriptions];
 }
 
 + (void)load {
@@ -141,10 +124,10 @@ static NSArray *pfLocalisedDescriptions;
         fbLocalisedDescriptions = @[@"Name", @"Description", @"Location",@"Venue",@"Starts at",@"Ends at", @"Tickets"];
     }
     if (!pfProperties) {
-        pfProperties = @[@"artists", @"mainStyle", @"secondaryStyle",];
+        pfProperties = @[@"artists", @"mainStyle", @"secondaryStyle", @"coverPhoto"];
     }
     if (!pfLocalisedDescriptions) {
-        pfLocalisedDescriptions = @[@"Artists",@"Main Dance Style",@"Second Dance Style"];
+        pfLocalisedDescriptions = @[@"Artists",@"Main Dance Style",@"Second Dance Style", @"Cover Photo"];
     }
     
     [super load];
@@ -166,32 +149,7 @@ static NSArray *pfLocalisedDescriptions;
                 
                 
                 PFEvent *event = [objects firstObject];
-                event.owner = nil;
-                event.venue = nil;
-                [PFVenue queryForID:event.venueID completion:^(PFVenue *venue, NSError *error) {
-                    if (error) {
-                        NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-                    }
-                    if (venue) {
-                        event.venue = venue;
-                    }
-                    
-                    if (event.owner) {
-                        block (event, error);
-                    }
-                }];
-                [PFOwner queryForID:event.ownerID completion:^(PFOwner *owner, NSError *error) {
-                    if (error) {
-                        NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-                    }
-                    if (owner) {
-                        event.owner = owner;
-                    }
-                    
-                    if (event.venue) {
-                        block (event,nil);
-                    }
-                }];
+                [event fetchEventDetailsWithBlock:block];
             }
             else {
                 block(nil,nil);
@@ -201,6 +159,35 @@ static NSArray *pfLocalisedDescriptions;
             // Log details of the failure
             NSLog(@"%s\n%@", __PRETTY_FUNCTION__, [error userInfo]);
             block(nil,error);
+        }
+    }];
+}
+- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block {
+    self.owner = nil;
+    self.venue = nil;
+    [PFVenue queryForID:self.venueID completion:^(PFVenue *venue, NSError *error) {
+        if (error) {
+            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
+        }
+        if (venue) {
+            self.venue = venue;
+        }
+        
+        if (self.owner) {
+            block (self, error);
+        }
+    }];
+    
+    [PFOwner queryForID:self.ownerID completion:^(PFOwner *owner, NSError *error) {
+        if (error) {
+            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
+        }
+        if (owner) {
+            self.owner = owner;
+        }
+        
+        if (self.venue) {
+            block (self,nil);
         }
     }];
 }

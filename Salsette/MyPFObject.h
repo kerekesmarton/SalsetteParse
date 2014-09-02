@@ -15,4 +15,10 @@
 + (instancetype)objectWithDictionary:(NSDictionary *)dictionary;
 - (NSString *)shortDesc;
 + (void)queryForID:(NSNumber *)id completion:(void (^)(id,NSError *))block;
+
+- (id)objectForIndex:(NSIndexPath *)indexPath;
+- (NSString *)keyForIndex:(NSIndexPath *)indexPath;
+- (NSArray *)dataSourceCount;
+- (NSArray *)descriptionDataSourceCount;
+
 @end

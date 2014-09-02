@@ -11,6 +11,7 @@
 #import "UserDetailsViewController.h"
 #import "CreateEventViewController.h"
 #import "TWTMainViewController.h"
+#import "EditEventTableViewController.h"
 
 @interface SideMenuItem ()
 
@@ -36,11 +37,11 @@
     
     dispatch_async(self.queue, ^{
         loader();
-        self.itemEvent(self);
+        self.itemEvent(nil,nil);
     });
 }
 
-+(SideMenuItem *)mapItem:(PFUser *)user completion:(void (^)(SideMenuItem *item)) completion{
++(SideMenuItem *)mapItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion{
     
     
     SideMenuItem *item = [[SideMenuItem alloc] init];
@@ -64,7 +65,7 @@
     return item;
 }
 
-+(SideMenuItem *)calendarItem:(PFUser *)user completion:(void (^)(SideMenuItem *item)) completion {
++(SideMenuItem *)calendarItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion {
     
     
     SideMenuItem *item = [[SideMenuItem alloc] init];
@@ -83,7 +84,7 @@
     return item;
 }
 
-+ (SideMenuItem *)createEventItem:(PFUser *)user completion:(void (^)(SideMenuItem *item)) completion {
++ (SideMenuItem *)createEventItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion {
     
     if (!user) {
         return nil;
@@ -107,15 +108,30 @@
     item.viewControllerClass = [CreateEventViewController class];
     item.itemEvent = completion;
     
-    [item load:^{                
+    [item load:^{
         
     }];
     
     return item;
-    
 }
 
-+ (SideMenuItem *)userItem:(PFUser *)user completion:(void (^)(SideMenuItem *item)) completion {
++ (SideMenuItem *)fetchedEventItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion {
+    
+    SideMenuItem *item = [[SideMenuItem alloc] init];
+    item.itemTitle = @"Event";
+    item.itemImage = [UIImage imageNamed:@"database"];
+    item.status = ItemStatusBasic;
+    item.viewControllerClass = [EditEventTableViewController class];
+    item.itemEvent = completion;
+    
+    dispatch_async(item.queue, ^{
+        item.itemEvent(item,nil);
+    });
+    
+    return item;
+}
+
++ (SideMenuItem *)userItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion {
     
     SideMenuItem *item = [[SideMenuItem alloc] init];
     item.itemTitle = @"User";

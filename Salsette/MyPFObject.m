@@ -9,6 +9,13 @@
 #import "MyPFObject.h"
 #import <Parse/PFObject+Subclass.h>
 
+static NSArray *fbEventGraphKeys;
+
+static NSArray *fbProperties;
+static NSArray *fbLocalisedDescriptions;
+static NSArray *pfProperties;
+static NSArray *pfLocalisedDescriptions;
+
 @implementation MyPFObject
 
 @dynamic identifier;
@@ -35,6 +42,37 @@
 +(void)queryForID:(NSNumber *)id completion:(void (^)(id obj, NSError *err))block {
     
     block (nil,nil);
+}
+
+- (id)objectForIndex:(NSIndexPath *)indexPath {
+    
+    NSArray *data = [self dataSourceCount];
+    
+    NSArray *section = data[indexPath.section];
+    
+    id obj = section[indexPath.row];
+    
+    return self[obj];
+}
+
+- (NSString *)keyForIndex:(NSIndexPath *)indexPath {
+    
+    NSArray *data = [self descriptionDataSourceCount];
+    
+    NSArray *section = data[indexPath.section];
+    
+    id obj = section[indexPath.row];
+    
+    return obj;
+}
+
+-(NSArray *)dataSourceCount {
+    
+    return [NSArray array];
+}
+
+-(NSArray *)descriptionDataSourceCount {
+    return [NSArray array];
 }
 
 @end

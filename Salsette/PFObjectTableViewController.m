@@ -6,13 +6,14 @@
 //
 //
 
-#import "VenueTableViewController.h"
+#import "PFObjectTableViewController.h"
+#import "DefaultTableViewCell.h"
 
-@interface VenueTableViewController ()
+@interface PFObjectTableViewController ()
 
 @end
 
-@implementation VenueTableViewController
+@implementation PFObjectTableViewController
 
 - (void)viewDidLoad
 {
@@ -35,28 +36,55 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+    
     // Return the number of sections.
-    return 0;
+    return [self.object.dataSourceCount count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [[self.object.dataSourceCount objectAtIndex:section] count];
 }
 
-/*
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20.0f;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"Cell";
+    DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (cell == nil) {
+        // Create the cell and add the labels
+        cell = [[DefaultTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    // Display the data in the table
+    cell.titleLabel.text = [self.object keyForIndex:indexPath];
+    
+    id obj = [self.object objectForIndex:indexPath];
+    if ([obj isKindOfClass:[NSString class]]) {
+        cell.detailLabel.text = obj;
+    }
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        cell.detailLabel.text = [obj stringValue];
+    }
+    if ([obj isKindOfClass:[PFGeoPoint class]]) {
+        
+        PFGeoPoint *gp = obj;
+        cell.detailLabel.text = [NSString stringWithFormat:@"%2.4f, %2.4f",gp.latitude,gp.longitude];
+    }
+    if ([obj isKindOfClass:[MyPFObject class]]) {
+        cell.detailLabel.text = [obj shortDesc];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

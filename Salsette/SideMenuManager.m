@@ -26,12 +26,16 @@
 
 - (void)createSideMenuForWindow:(UIWindow *)window {
     
-    self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item) {
-//        self.
+    self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item, NSIndexPath *indexPath) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (item && indexPath) {
+                [self.menuViewController addItem:item atIndexPath:indexPath];
+            }
+        });
     }];
 
     self.menuViewController = [[TWTMenuViewController alloc] init];
-    self.menuViewController.dataSource = self.menuDataSource;
+    self.menuViewController.dataSource = [self.menuDataSource mutableCopy];
     self.mainViewController = [[TWTMainViewController alloc] init];
 
     self.sideMenuViewController = [[TWTSideMenuViewController alloc] initWithMenuViewController:self.menuViewController mainViewController:[[UINavigationController alloc] initWithRootViewController:self.mainViewController]];
@@ -50,11 +54,8 @@
 - (void)fbSessionDidSetActiveSession:(NSNotification *)notification {
     
     if ([NSThread isMainThread]) {
-        self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item) {
-            //
-        }];
-        self.menuViewController.dataSource = self.menuDataSource;
-        
+        self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item,NSIndexPath *indexPath) {}];
+        self.menuViewController.dataSource = [self.menuDataSource mutableCopy];
         [self.menuViewController reload];
     }
 }
