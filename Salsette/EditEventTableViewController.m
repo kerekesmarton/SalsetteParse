@@ -6,18 +6,43 @@
 //
 //
 
-#import "EditEventTableViewController.h"
 #import "TWTSideMenuViewController.h"
-#import "ParseManager.h"
+
+#import "EditEventTableViewController.h"
+#import "EditCoverViewController.h"
+#import "PFObjectTableViewController.h"
+#import "EditDanceStyleViewController.h"
+
+#import "UIViewController+ActivityIndicator.h"
+
 #import "DefaultTableViewCell.h"
 
-#import "PFObjectTableViewController.h"
+#import "ParseManager.h"
+#import "PFEvent.h"
+#import "PFCover.h"
+#import "PFDanceStyle.h"
 
 @interface EditEventTableViewController ()
+
+@property (nonatomic, strong) UIImage   *fetchedImage;
 
 @end
 
 @implementation EditEventTableViewController
+
+@synthesize object = _object;
+
+-(void)setObject:(MyPFObject *)object {
+    
+    _object = object;
+    _event = (PFEvent *)object;
+}
+
+-(void)setEvent:(PFEvent *)event {
+    
+    _event = event;
+    _object = event;
+}
 
 - (void)viewDidLoad
 {
@@ -43,27 +68,16 @@
         UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
         self.navigationItem.leftBarButtonItem = openItem;
     } else {
-        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Open" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
+        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
         self.navigationItem.leftBarButtonItem = openItem;
     }
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.event.coverPhoto) {
-        __weak EditEventTableViewController *weakSelf = self;
-        
-        [ParseManager fetchImageWithURL:self.event.coverPhoto Completion:^(UIImage *responseObject) {
-        
-            CGFloat newHeight = (CGFloat)responseObject.size.height * (CGFloat)weakSelf.view.frameWidth / (CGFloat)responseObject.size.height;
-            UIImage *res = [UIImage imageWithImage:responseObject scaledToSize:CGSizeMake(weakSelf.view.frameWidth, newHeight)];
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:res];
-            weakSelf.tableView.tableHeaderView = imgView;
-        }];
-    }
     [self.tableView reloadData];
+    [self loadImage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,56 +87,6 @@
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-
-    // Return the number of sections.
-    return [self.event.dataSourceCount count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [[self.event.dataSourceCount objectAtIndex:section] count];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20.0f;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    DefaultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        // Create the cell and add the labels
-        cell = [[DefaultTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    // Display the data in the table
-    cell.titleLabel.text = [self.event keyForIndex:indexPath];
-    
-    id obj = [self.event objectForIndex:indexPath];
-    if ([obj isKindOfClass:[NSString class]]) {
-        cell.detailLabel.text = obj;
-    }
-    if ([obj isKindOfClass:[NSNumber class]]) {
-        cell.detailLabel.text = [obj stringValue];
-    }
-    if ([obj isKindOfClass:[NSDate class]]) {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterShortStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-        cell.detailLabel.text = [formatter stringFromDate:obj];
-    }
-    if ([obj isKindOfClass:[MyPFObject class]]) {
-        cell.detailLabel.text = [obj shortDesc];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
-    return cell;
-}
 
 
 /*
@@ -163,7 +127,6 @@
 }
 */
 
-
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
@@ -173,26 +136,26 @@
     // Create the next view controller.
     
     id obj = [self.event objectForIndex:indexPath];
-//    if ([obj isKindOfClass:[NSString class]]) {
-//        cell.detailLabel.text = obj;
-//    }
-//    if ([obj isKindOfClass:[NSNumber class]]) {
-//        cell.detailLabel.text = [obj stringValue];
-//    }
-//    if ([obj isKindOfClass:[NSDate class]]) {
-//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        [formatter setDateStyle:NSDateFormatterShortStyle];
-//        [formatter setTimeStyle:NSDateFormatterShortStyle];
-//        cell.detailLabel.text = [formatter stringFromDate:obj];
-//    }
     
-    if ([obj isKindOfClass:[PFVenue class]]) {
+    if ([obj isKindOfClass:[PFCover class]] && [self.event objectId]) {
+        EditCoverViewController *detailViewController = [[EditCoverViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+        detailViewController.cover = obj;
+        detailViewController.fetchedImage = self.fetchedImage;
+        self.fetchedImage = nil;
+        [self.navigationController pushViewController:detailViewController animated:YES];
+        
+    } else if ([obj isKindOfClass:[PFDanceStyle class]]) {
+        EditDanceStyleViewController *detailViewController = [[EditDanceStyleViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+        detailViewController.style = obj;
+        [self.navigationController pushViewController:detailViewController animated:YES];
+        
+    } else if ([obj isKindOfClass:[MyPFObject class]]) {
         PFObjectTableViewController *detailViewController = [[PFObjectTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
         detailViewController.object = obj;
         [self.navigationController pushViewController:detailViewController animated:YES];
+        
     }
 }
-
 
 - (void)cancelButtonPressed
 {
@@ -209,29 +172,46 @@
 - (void)startButtonPressed {
     
     PFEvent *event = self.event;
-    
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
+    [self.HUD show:YES];
     event.pfUser = [PFUser currentUser];
-   
+    
     __weak EditEventTableViewController *weakSelf = self;
     
     [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        
-        @try {
-            if (error) {
-                NSLog(@"%@",[error userInfo]);
-            }
-            if (succeeded) {
-                
-                UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
-                weakSelf.navigationItem.rightBarButtonItem = start;
-            }
+        [self.HUD hide:YES];
+        if (error) {
+            NSLog(@"%@",[error userInfo]);
         }
-        @catch (NSException *exception) {
-            NSLog(@"%@",[exception userInfo]);
+        if (succeeded) {
+            
+            UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
+            weakSelf.navigationItem.rightBarButtonItem = start;
         }
-        
     }];
     
+}
+
+- (void)loadImage {
+    
+    PFCover *cover = self.event.coverPhoto;
+
+    if (self.fetchedImage) {
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:self.fetchedImage];
+        self.tableView.tableHeaderView = imgView;
+    } else if (cover && cover.url) {
+        __weak EditEventTableViewController *weakSelf = self;
+        
+        [ParseManager fetchImageWithURL:cover.url Completion:^(UIImage *responseObject) {
+            
+//            CGFloat newHeight = (CGFloat)responseObject.size.height * (CGFloat)weakSelf.view.frameWidth / (CGFloat)responseObject.size.height;
+//            UIImage *res = [UIImage imageWithImage:responseObject scaledToSize:CGSizeMake(weakSelf.view.frameWidth, newHeight)];
+            UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
+            weakSelf.tableView.tableHeaderView = imgView;
+            
+            weakSelf.fetchedImage = responseObject;
+        }];
+    }
 }
 
 @end

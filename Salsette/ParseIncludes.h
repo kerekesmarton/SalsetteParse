@@ -12,6 +12,8 @@
 #import "PFEvent.h"
 #import "PFVenue.h"
 #import "PFOwner.h"
+#import "PFCover.h"
+#import "PFDanceStyle.h"
 
 @interface ParseIncludes : NSObject
 

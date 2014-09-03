@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
-#import "PFEvent.h"
+#import "PFObjectTableViewController.h"
 
-@interface EditEventTableViewController : UITableViewController
+@class PFEvent;
+@interface EditEventTableViewController : PFObjectTableViewController
 
 @property (nonatomic, strong) PFEvent *event;
 

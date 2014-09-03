@@ -124,10 +124,6 @@
     item.viewControllerClass = [EditEventTableViewController class];
     item.itemEvent = completion;
     
-    dispatch_async(item.queue, ^{
-        item.itemEvent(item,nil);
-    });
-    
     return item;
 }
 

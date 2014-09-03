@@ -36,7 +36,7 @@ static NSArray *pfLocalisedDescriptions;
         } else if ([key isEqualToString:@"country"]) {
             venue.country = obj;
         } else if ([key isEqualToString:@"id"]) {
-            venue.identifier = @([obj intValue]);
+            venue.identifier = obj;
         } else if ([key isEqualToString:@"latitude"]) {
             lat = @([obj doubleValue]);
         } else if ([key isEqualToString:@"longitude"]) {
@@ -109,7 +109,7 @@ static NSArray *pfLocalisedDescriptions;
     return @[fbLocalisedDescriptions,pfLocalisedDescriptions];
 }
 
-+ (void)queryForID:(NSNumber *)identifier completion:(void (^)(id,NSError *))block {
++(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
     
     PFQuery *query = [self query];
     [query whereKey:@"identifier" equalTo:identifier];
@@ -128,5 +128,7 @@ static NSArray *pfLocalisedDescriptions;
         }
     }];
 }
+
+
 
 @end

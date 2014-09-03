@@ -10,12 +10,13 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "TWTSideMenuViewController.h"
 #import "EditEventTableViewController.h"
+#import "PFEvent.h"
+#import "UIViewController+ActivityIndicator.h"
 
 @interface CreateEventViewController ()
 
-@property (strong, nonatomic) IBOutlet UIButton *fetchEventButton;
-@property (strong, nonatomic) IBOutlet UITextField *eventLinkTextField;
-
+@property (strong, nonatomic) IBOutlet UIButton     *fetchEventButton;
+@property (strong, nonatomic) IBOutlet UITextField  *eventLinkTextField;
 @end
 
 @implementation CreateEventViewController
@@ -33,7 +34,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Open" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
+    UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
     self.navigationItem.leftBarButtonItem = openItem;
 }
 
@@ -82,6 +83,8 @@
     
     if (eventID) {
         
+        self.HUD.mode = MBProgressHUDModeIndeterminate;
+        [self.HUD show:YES];
         __weak CreateEventViewController *weakSelf = self;
         [FBRequestConnection startWithGraphPath:eventID
                                      parameters:nil
@@ -95,6 +98,7 @@
                                       PFEvent *event = [PFEvent eventWithGraphObject:result];
                                       [PFEvent queryForID:event.identifier completion:^(PFEvent *obj, NSError *error) {
                                           
+                                          [weakSelf.HUD hide:YES];
                                           EditEventTableViewController *edit = [[EditEventTableViewController alloc] initWithNibName:NSStringFromClass([EditEventTableViewController class]) bundle:nil];
                                           if (obj) {
                                               edit.event = obj;

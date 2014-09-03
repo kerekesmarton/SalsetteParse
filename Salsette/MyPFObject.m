@@ -13,6 +13,7 @@ static NSArray *fbEventGraphKeys;
 
 static NSArray *fbProperties;
 static NSArray *fbLocalisedDescriptions;
+
 static NSArray *pfProperties;
 static NSArray *pfLocalisedDescriptions;
 
@@ -39,7 +40,7 @@ static NSArray *pfLocalisedDescriptions;
     return [NSString stringWithFormat:@"empty %@",NSStringFromClass([self class])];
 }
 
-+(void)queryForID:(NSNumber *)id completion:(void (^)(id obj, NSError *err))block {
++(void)queryForID:(NSNumber *)identifier completion:(void (^)(id obj, NSError *err))block {
     
     block (nil,nil);
 }

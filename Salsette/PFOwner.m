@@ -29,7 +29,7 @@ static NSArray *pfLocalisedDescriptions;
         if ([key isEqualToString:@"name"]) {
             owner.name = obj;
         } else if ([key isEqualToString:@"id"]) {
-            owner.identifier = @([obj intValue]);
+            owner.identifier = obj;
         }
     }
     
@@ -64,12 +64,14 @@ static NSArray *pfLocalisedDescriptions;
     return @[fbLocalisedDescriptions];
 }
 
-+(void)queryForID:(NSNumber *)identifier completion:(void (^)(id, NSError *))block {
++(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
     
     PFQuery *query = [self query];
     [query whereKey:@"identifier" equalTo:identifier];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            // The find succeeded.
+            
             if (objects.count > 0) {
                 
                 PFOwner *owner = [objects firstObject];

@@ -12,6 +12,8 @@
 #import "PFEvent.h"
 #import "PFOwner.h"
 #import "PFVenue.h"
+#import "PFCover.h"
+#import "PFDanceStyle.h"
 
 static NSArray *fbEventGraphKeys;
 
@@ -20,13 +22,16 @@ static NSArray *fbLocalisedDescriptions;
 static NSArray *pfProperties;
 static NSArray *pfLocalisedDescriptions;
 
-@implementation PFEvent
+@implementation PFEvent {
+    
+    BOOL didComplete;
+}
 
 @dynamic name,longDesc,coverPhoto,venue,location,owner,startTime,endTime,timeZone,attending,maybe,ticketURI;
 
 @dynamic artists,mainStyle,secondaryStyle;
 
-@dynamic pfUser,venueID,ownerID;
+@dynamic pfUser,venueID,ownerID,coverID;
 
 +(PFEvent *)eventWithGraphObject:(FBGraphObject *)graph {
     
@@ -38,10 +43,11 @@ static NSArray *pfLocalisedDescriptions;
         
         if ([key isEqualToString:@"id"]) {
             
-            event.identifier = @([obj intValue]);
+            event.identifier = obj;
         } else if ([key isEqualToString:@"cover"]) {
             
-            event.coverPhoto = obj;
+            event.coverPhoto = [PFCover objectWithURL:obj identifier:event.identifier];
+            event.coverID = event.identifier;
         }
         else if ([key isEqualToString:@"description"]) {
             event.longDesc = obj;
@@ -96,6 +102,16 @@ static NSArray *pfLocalisedDescriptions;
         }
     }
     
+    event.artists = [NSArray array];
+    
+    NSString *mainID = [NSString stringWithFormat:@"m_%@",event.identifier];
+    event.mainStyle = [PFDanceStyle objectWithStyle:DanceStyleUndefined identifier:mainID];
+    event.mainStyleID = mainID;
+    
+    NSString *secondID = [NSString stringWithFormat:@"s_%@",event.identifier];
+    event.secondaryStyle = [PFDanceStyle objectWithStyle:DanceStyleUndefined identifier:secondID];
+    event.secondStyleID = secondID;
+    
     return event;
 }
 
@@ -137,7 +153,7 @@ static NSArray *pfLocalisedDescriptions;
     return self.name;
 }
 
-+(void)queryForID:(NSNumber *)identifier completion:(void (^)(id,NSError *))block {
++(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
     
     PFQuery *query = [self query];
     [query whereKey:@"identifier" equalTo:identifier];
@@ -146,8 +162,6 @@ static NSArray *pfLocalisedDescriptions;
             // The find succeeded.
             
             if (objects.count > 0) {
-                
-                
                 PFEvent *event = [objects firstObject];
                 [event fetchEventDetailsWithBlock:block];
             }
@@ -162,34 +176,84 @@ static NSArray *pfLocalisedDescriptions;
         }
     }];
 }
+
 - (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block {
     self.owner = nil;
     self.venue = nil;
+    didComplete = NO;
     [PFVenue queryForID:self.venueID completion:^(PFVenue *venue, NSError *error) {
         if (error) {
             NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        }
-        if (venue) {
+        } else {
             self.venue = venue;
-        }
-        
-        if (self.owner) {
-            block (self, error);
+            [self tryCompleteBlock:block];
         }
     }];
     
     [PFOwner queryForID:self.ownerID completion:^(PFOwner *owner, NSError *error) {
         if (error) {
             NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        }
-        if (owner) {
+        } else {
             self.owner = owner;
-        }
-        
-        if (self.venue) {
-            block (self,nil);
+            [self tryCompleteBlock:block];
         }
     }];
+    
+    [PFCover queryForID:self.coverID completion:^(PFCover *cover, NSError *error) {
+        if (error) {
+            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
+        } else {
+            self.coverPhoto = cover;
+            [self tryCompleteBlock:block];
+        }
+    }];
+    
+    [PFDanceStyle queryForID:self.mainStyleID completion:^(PFDanceStyle *style, NSError *error) {
+        if (error) {
+            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
+        } else {
+            self.mainStyle = style;
+            [self tryCompleteBlock:block];
+        }
+    }];
+    [PFDanceStyle queryForID:self.secondStyleID completion:^(PFDanceStyle *style, NSError *error) {
+        if (error) {
+            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
+        } else {
+            self.secondaryStyle = style;
+            [self tryCompleteBlock:block];
+        }
+    }];
+
+}
+
+- (void)tryCompleteBlock:(void (^)(id,NSError *))block {
+    
+    BOOL isReady = YES;
+    
+    if (!self.owner) {
+        isReady = NO;
+    }
+    if (!self.venue) {
+        isReady = NO;
+    }
+    
+    if (!self.coverPhoto) {
+        isReady = NO;
+    }
+    
+    if (!self.mainStyle) {
+        isReady = NO;
+    }
+    
+    if (!self.secondaryStyle) {
+        isReady = NO;
+    }
+    
+    if (!didComplete && isReady) {
+        didComplete = YES;
+        block (self,nil);
+    }
 }
 
 @end

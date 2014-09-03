@@ -9,7 +9,7 @@
 #import "MyPFObject.h"
 
 @class FBGraphObject;
-@class PFOwner,PFVenue;
+@class PFOwner,PFVenue,PFCover,PFDanceStyle;
 
 @interface PFEvent : MyPFObject
 
@@ -18,7 +18,7 @@
 //tags from facebook
 @property (nonatomic, strong) NSString  *name;          //name
 @property (nonatomic, strong) NSString  *longDesc;      //description
-@property (nonatomic, strong) NSString  *coverPhoto;    //cover/source
+@property (nonatomic, strong) PFCover   *coverPhoto;
 
 
 @property (nonatomic, strong) PFVenue   *venue;         //venue
@@ -36,14 +36,17 @@
 
 //parse properties
 @property (nonatomic, strong) NSArray   *artists;       //artists invited
-@property (nonatomic, strong) NSNumber  *mainStyle;     //main dance style
-@property (nonatomic, strong) NSNumber  *secondaryStyle;//secondary dance style
+@property (nonatomic, strong) PFDanceStyle  *mainStyle;     //main dance style
+@property (nonatomic, strong) PFDanceStyle  *secondaryStyle;//secondary dance style
 
 
 //references//parse only
 @property (nonatomic, strong) PFUser    *pfUser;        // relationship to fetch for
-@property (nonatomic, strong) NSNumber  *venueID;
-@property (nonatomic, strong) NSNumber  *ownerID;
+@property (nonatomic, strong) NSString  *venueID;
+@property (nonatomic, strong) NSString  *ownerID;
+@property (nonatomic, strong) NSString  *coverID;
+@property (nonatomic, strong) NSString  *mainStyleID;
+@property (nonatomic, strong) NSString  *secondStyleID;
 
 - (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
 

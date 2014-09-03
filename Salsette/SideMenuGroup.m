@@ -42,6 +42,10 @@
 //
 //    group.groupItems = createItem? [NSMutableArray arrayWithArray:@[createItem]]  : nil;
     
+    if (!user) {
+        return [NSArray array];
+    }
+    
     PFQuery *query = [PFEvent query];
     [query whereKey:@"pfUser" containedIn:@[[PFUser currentUser]]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
@@ -53,11 +57,10 @@
                 if (eventError) {
                     NSLog(@"%@",[eventError userInfo].description);
                 }
-                [SideMenuItem fetchedEventItem:user completion:^(SideMenuItem *item, NSIndexPath *indexPath) {
-                    item.itemObject = event;
-                    indexPath = [NSIndexPath indexPathForItem:idx+1 inSection:1];
-                    block(item,indexPath);
-                }];
+                SideMenuItem *item = [SideMenuItem fetchedEventItem:user completion:^(SideMenuItem *item, NSIndexPath *indexPath) {}];
+                item.itemObject = event;
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                block(item,indexPath);
             }];
         }];
     }];

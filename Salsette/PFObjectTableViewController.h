@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PFVenue.h"
+@class DefaultTableViewCell;
+@class MyPFObject;
 
 @interface PFObjectTableViewController : UITableViewController
 
 @property (nonatomic, strong) MyPFObject *object;
+
+- (void)configureCell:(DefaultTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end

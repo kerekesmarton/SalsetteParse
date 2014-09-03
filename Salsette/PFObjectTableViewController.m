@@ -9,6 +9,8 @@
 #import "PFObjectTableViewController.h"
 #import "DefaultTableViewCell.h"
 
+#import "MyPFObject.h"
+
 @interface PFObjectTableViewController ()
 
 @end
@@ -62,25 +64,7 @@
         cell = [[DefaultTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Display the data in the table
-    cell.titleLabel.text = [self.object keyForIndex:indexPath];
-    
-    id obj = [self.object objectForIndex:indexPath];
-    if ([obj isKindOfClass:[NSString class]]) {
-        cell.detailLabel.text = obj;
-    }
-    if ([obj isKindOfClass:[NSNumber class]]) {
-        cell.detailLabel.text = [obj stringValue];
-    }
-    if ([obj isKindOfClass:[PFGeoPoint class]]) {
-        
-        PFGeoPoint *gp = obj;
-        cell.detailLabel.text = [NSString stringWithFormat:@"%2.4f, %2.4f",gp.latitude,gp.longitude];
-    }
-    if ([obj isKindOfClass:[MyPFObject class]]) {
-        cell.detailLabel.text = [obj shortDesc];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }
@@ -124,21 +108,37 @@
 }
 */
 
-/*
-#pragma mark - Table view delegate
 
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
+-(void)configureCell:(DefaultTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    // Display the data in the table
+    cell.titleLabel.text = [self.object keyForIndex:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryNone;
     
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    id obj = [self.object objectForIndex:indexPath];
+    if (!obj) {
+        return;
+    }
+    if ([obj isKindOfClass:[NSString class]]) {
+        cell.detailLabel.text = obj;
+    } else
+    if ([obj isKindOfClass:[NSNumber class]]) {
+        cell.detailLabel.text = [obj stringValue];
+    } else
+    if ([obj isKindOfClass:[PFGeoPoint class]]) {
+        
+        PFGeoPoint *gp = obj;
+        cell.detailLabel.text = [NSString stringWithFormat:@"%2.4f, %2.4f",gp.latitude,gp.longitude];
+    } else
+    if ([obj isKindOfClass:[MyPFObject class]]) {
+        cell.detailLabel.text = [obj shortDesc];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else
+    if ([obj isKindOfClass:[NSDate class]]) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        cell.detailLabel.text = [formatter stringFromDate:obj];
+    }
 }
-*/
 
 @end

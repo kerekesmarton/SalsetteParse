@@ -27,11 +27,13 @@
 - (void)createSideMenuForWindow:(UIWindow *)window {
     
     self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item, NSIndexPath *indexPath) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (item && indexPath) {
+        if (item && indexPath) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [self.menuViewController addItem:item atIndexPath:indexPath];
-            }
-        });
+                
+            });
+        }
     }];
 
     self.menuViewController = [[TWTMenuViewController alloc] init];
@@ -72,19 +74,23 @@
 }
 
 - (void)sideMenuViewControllerWillOpenMenu:(TWTSideMenuViewController *)sender {
-    NSLog(@"willOpenMenu");
+
+    
 }
 
 - (void)sideMenuViewControllerDidOpenMenu:(TWTSideMenuViewController *)sender {
-    NSLog(@"didOpenMenu");
+
+    
 }
 
 - (void)sideMenuViewControllerWillCloseMenu:(TWTSideMenuViewController *)sender {
-    NSLog(@"willCloseMenu");
+
+    
 }
 
 - (void)sideMenuViewControllerDidCloseMenu:(TWTSideMenuViewController *)sender {
-	NSLog(@"didCloseMenu");
+
+    
 }
 
 

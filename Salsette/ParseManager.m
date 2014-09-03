@@ -33,6 +33,8 @@ NSString *const PFUserSessionDidChangeNotification = @"PFUserSessionDidChangeNot
     [PFEvent load];
     [PFOwner load];
     [PFVenue load];
+    [PFCover load];
+    [PFDanceStyle load];
     
     [Parse setApplicationId:@"jmtHBjv2Fkz6gDrq63ntDz22bhccJy7aWVv3ulyN" clientKey:@"juDQE9HtWBOZkMOeKQpiboVo9wuflH7McJWtO0gM"];
     
