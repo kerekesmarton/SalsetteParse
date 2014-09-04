@@ -13,6 +13,6 @@
 
 @interface SideMenuFactory : NSObject
 
-+ (NSArray *)menuItemsWithUser:(PFUser *)user event:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) event;
++ (NSArray *)menuItemsWithUser:(PFUser *)user event:(void (^)(SideMenuItem *item)) event update:(void (^)(SideMenuItem *item))update;
 
 @end

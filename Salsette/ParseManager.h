@@ -15,7 +15,6 @@ extern NSString * const PFUserSessionDidChangeNotification;
 + (void)registerAppWithLauncOptions:(NSDictionary *)dictionary;
 + (void)requestFacebookUserdataAndUpdateProfileWithCompletion:(void (^)(void))block;
 
-+ (void)fetchUserImageFromFacebookWithCompletion:(void (^)(UIImage *responseObject))success;
-+ (void)fetchImageWithURL:(NSString *)ulrString Completion:(void (^)(UIImage *responseObject))success;
++ (void)fetchImageWithURL:(NSString *)ulrString completion:(void (^)(UIImage *responseObject))success;
 
 @end

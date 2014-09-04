@@ -63,6 +63,7 @@ static NSArray *pfLocalisedDescriptions;
             if (objects.count > 0) {
                 
                 PFCover *cover = [objects firstObject];
+                [cover fetchIfNeeded];
                 block(cover,nil);
             } else {
                 block(nil,nil);

@@ -8,6 +8,8 @@
 #import "LoginViewController.h"
 #import "TWTSideMenuViewController.h"
 
+#import "ImageDataManager.h"
+
 @implementation UserDetailsViewController
 
 
@@ -166,7 +168,7 @@
         self.headerNameLabel.text = [[PFUser currentUser] objectForKey:@"profile"][@"name"];
     }
     
-    [ParseManager fetchUserImageFromFacebookWithCompletion:^(UIImage *responseObject) {
+    [[ImageDataManager sharedInstance] userImageFromFacebookWithCompletion:^(UIImage *responseObject) {
 
         self.headerImageView.image = responseObject;
         // Add a nice corner radius to the image

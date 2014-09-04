@@ -93,16 +93,7 @@ NSString *const PFUserSessionDidChangeNotification = @"PFUserSessionDidChangeNot
     }];
 }
 
-+ (void)fetchUserImageFromFacebookWithCompletion:(void (^)(UIImage *responseObject))success {
-    if ([[PFUser currentUser] objectForKey:@"profile"][@"pictureURL"]) {
-        
-        NSString *pictureURL = [[PFUser currentUser] objectForKey:@"profile"][@"pictureURL"];
-        
-        [self fetchImageWithURL:pictureURL Completion:success];
-    }
-}
-
-+ (void)fetchImageWithURL:(NSString *)ulrString Completion:(void (^)(UIImage *responseObject))success {
++ (void)fetchImageWithURL:(NSString *)ulrString completion:(void (^)(UIImage *responseObject))success {
     NSURL *url = [NSURL URLWithString:ulrString];
     if (!url) {
         return;

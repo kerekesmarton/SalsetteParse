@@ -26,15 +26,7 @@
 
 - (void)createSideMenuForWindow:(UIWindow *)window {
     
-    self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item, NSIndexPath *indexPath) {
-        if (item && indexPath) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.menuViewController addItem:item atIndexPath:indexPath];
-                
-            });
-        }
-    }];
+    [self loadMenuDataSource];
 
     self.menuViewController = [[TWTMenuViewController alloc] init];
     self.menuViewController.dataSource = [self.menuDataSource mutableCopy];
@@ -53,10 +45,31 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbSessionDidSetActiveSession:) name:PFUserSessionDidChangeNotification];
 }
+
+- (void)loadMenuDataSource {
+    
+    self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item) {
+        if (item && item.indexPath) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [self.menuViewController addItem:item atIndexPath:item.indexPath];
+            });
+        }
+    } update:^(SideMenuItem *item) {
+        if (item && item.indexPath) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+//                [self.menuViewController updateItem:item atIndexPath:item.indexPath];
+                
+            });
+        }
+    }];
+    
+}
 - (void)fbSessionDidSetActiveSession:(NSNotification *)notification {
     
     if ([NSThread isMainThread]) {
-        self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item,NSIndexPath *indexPath) {}];
+        [self loadMenuDataSource];
         self.menuViewController.dataSource = [self.menuDataSource mutableCopy];
         [self.menuViewController reload];
     }

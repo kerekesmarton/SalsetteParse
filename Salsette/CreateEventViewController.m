@@ -55,10 +55,6 @@
         return;
     }
     
-    /*
-     https://www.facebook.com/events/481452221950102/?ref_dashboard_filter=upcoming
-     */
-    
     NSArray *parts = [self.eventLinkTextField.text componentsSeparatedByString:@"/"];
     
     __block BOOL foundEvents = NO;

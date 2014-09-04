@@ -24,16 +24,17 @@ typedef enum ItemStatus {
 @property (nonatomic, strong) UIImage       *itemImage;
 @property (nonatomic, strong) MyPFObject    *itemObject;
 @property (nonatomic, strong) Class         viewControllerClass;
-@property (nonatomic, strong) void          (^itemEvent)(SideMenuItem *, NSIndexPath *);
+@property (nonatomic, strong) void          (^itemEvent)(id);
 @property (nonatomic, assign) ItemStatus    status;
+@property (nonatomic, strong) NSIndexPath   *indexPath;
 
--(void)cancelLoading;
+-(void)load:(UIImageView *)imageView;
 
-+ (SideMenuItem *)mapItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
-+ (SideMenuItem *)calendarItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
++ (SideMenuItem *)mapItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
++ (SideMenuItem *)calendarItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 
-+ (SideMenuItem *)createEventItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
-+ (SideMenuItem *)fetchedEventItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
++ (SideMenuItem *)createEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
++ (SideMenuItem *)fetchedEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 
-+ (SideMenuItem *)userItem:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
++ (SideMenuItem *)userItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 @end

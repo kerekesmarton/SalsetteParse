@@ -31,7 +31,7 @@ static NSArray *pfLocalisedDescriptions;
 
 @dynamic artists,mainStyle,secondaryStyle;
 
-@dynamic pfUser,venueID,ownerID,coverID;
+@dynamic pfUser,venueID,ownerID,coverID,mainStyleID,secondStyleID;
 
 +(PFEvent *)eventWithGraphObject:(FBGraphObject *)graph {
     
@@ -216,6 +216,7 @@ static NSArray *pfLocalisedDescriptions;
             [self tryCompleteBlock:block];
         }
     }];
+    
     [PFDanceStyle queryForID:self.secondStyleID completion:^(PFDanceStyle *style, NSError *error) {
         if (error) {
             NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
@@ -231,22 +232,22 @@ static NSArray *pfLocalisedDescriptions;
     
     BOOL isReady = YES;
     
-    if (!self.owner) {
+    if (![self.owner isDataAvailable]) {
         isReady = NO;
     }
-    if (!self.venue) {
-        isReady = NO;
-    }
-    
-    if (!self.coverPhoto) {
+    if (![self.venue isDataAvailable]) {
         isReady = NO;
     }
     
-    if (!self.mainStyle) {
+    if (![self.coverPhoto isDataAvailable]) {
         isReady = NO;
     }
     
-    if (!self.secondaryStyle) {
+    if (![self.mainStyle isDataAvailable]) {
+        isReady = NO;
+    }
+    
+    if (![self.secondaryStyle isDataAvailable]) {
         isReady = NO;
     }
     

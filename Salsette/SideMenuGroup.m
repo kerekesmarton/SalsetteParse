@@ -12,36 +12,26 @@
 
 @implementation SideMenuGroup
 
-+(NSArray *)itemsWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) block{
++(NSArray *)itemsWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *))update {
     
     NSMutableArray *res = [NSMutableArray array];
-    [res addObject:[self mainGroupWithUser:user completion:block]];
-    [res addObject:[self extrasGroupWithUser:user completion:block]];
-    [res addObject:[self savedItemGroupWithUser:user completion:block]];
-    [res addObject:[self userGroupWithUser:user completion:block]];
+    [res addObject:[self mainGroupWithUser:user completion:block update:update]];
+    [res addObject:[self extrasGroupWithUser:user completion:block update:update]];
+    [res addObject:[self savedItemGroupWithUser:user completion:block update:update]];
+    [res addObject:[self userGroupWithUser:user completion:block update:update]];
     
     return [NSArray arrayWithArray:res];
 }
 
-+(NSArray *)mainGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) block{
++(NSArray *)mainGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
     
-//    SideMenuGroup *group = [[SideMenuGroup alloc] init];
-//    group.groupTitle = @"main";
-//    group.groupItems = [NSMutableArray arrayWithArray:@[[SideMenuItem mapItem:user completion:block],
-//                                                        [SideMenuItem calendarItem:user completion:block]]];
-    
-    return @[[SideMenuItem mapItem:user completion:block],
-             [SideMenuItem calendarItem:user completion:block]];
+    return @[[SideMenuItem mapItem:user update:update],
+             [SideMenuItem calendarItem:user update:update]];
 }
 
 
-+ (NSArray *)extrasGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) block{
-//    SideMenuGroup *group = [[SideMenuGroup alloc] init];
-//    group.groupTitle = @"extras";
-    
-//
-//    group.groupItems = createItem? [NSMutableArray arrayWithArray:@[createItem]]  : nil;
-    
++ (NSArray *)extrasGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
+
     if (!user) {
         return [NSArray array];
     }
@@ -57,30 +47,26 @@
                 if (eventError) {
                     NSLog(@"%@",[eventError userInfo].description);
                 }
-                SideMenuItem *item = [SideMenuItem fetchedEventItem:user completion:^(SideMenuItem *item, NSIndexPath *indexPath) {}];
+                SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
                 item.itemObject = event;
-                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:idx+1 inSection:1];
-                block(item,indexPath);
+                item.indexPath = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                block(item);
             }];
         }];
     }];
-    SideMenuItem *createItem = [SideMenuItem createEventItem:user completion:block];
+    
+    SideMenuItem *createItem = [SideMenuItem createEventItem:user update:update];
+    
     return @[createItem];
 }
 
-+ (NSArray *)savedItemGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) block{
-    SideMenuGroup *group = [[SideMenuGroup alloc] init];
-    group.groupTitle = @"saved";
-    group.groupItems = nil;
++ (NSArray *)savedItemGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
     
     return [NSArray array];
 }
 
-+ (NSArray *)userGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) block{
-//    SideMenuGroup *group = [[SideMenuGroup alloc] init];
-//    group.groupTitle = @"user";
-//    group.groupItems = [NSMutableArray arrayWithArray:@[[SideMenuItem userItem:user completion:block]]];
-    
-    return @[[SideMenuItem userItem:user completion:block]];
++ (NSArray *)userGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
+
+    return @[[SideMenuItem userItem:user update:update]];
 }
 @end

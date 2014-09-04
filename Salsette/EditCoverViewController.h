@@ -12,7 +12,6 @@
 
 @interface EditCoverViewController : PFObjectTableViewController
 
-@property (nonatomic, strong) UIImage   *fetchedImage;
 @property (nonatomic, strong) PFCover *cover;
 
 @end

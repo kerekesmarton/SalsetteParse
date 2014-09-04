@@ -17,14 +17,13 @@
 
 #import "DefaultTableViewCell.h"
 
-#import "ParseManager.h"
+#import "ImageDataManager.h"
+
 #import "PFEvent.h"
 #import "PFCover.h"
 #import "PFDanceStyle.h"
 
 @interface EditEventTableViewController ()
-
-@property (nonatomic, strong) UIImage   *fetchedImage;
 
 @end
 
@@ -140,8 +139,6 @@
     if ([obj isKindOfClass:[PFCover class]] && [self.event objectId]) {
         EditCoverViewController *detailViewController = [[EditCoverViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
         detailViewController.cover = obj;
-        detailViewController.fetchedImage = self.fetchedImage;
-        self.fetchedImage = nil;
         [self.navigationController pushViewController:detailViewController animated:YES];
         
     } else if ([obj isKindOfClass:[PFDanceStyle class]]) {
@@ -195,23 +192,12 @@
 - (void)loadImage {
     
     PFCover *cover = self.event.coverPhoto;
-
-    if (self.fetchedImage) {
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:self.fetchedImage];
-        self.tableView.tableHeaderView = imgView;
-    } else if (cover && cover.url) {
-        __weak EditEventTableViewController *weakSelf = self;
+    __weak EditEventTableViewController *weakSelf = self;
+    [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
         
-        [ParseManager fetchImageWithURL:cover.url Completion:^(UIImage *responseObject) {
-            
-//            CGFloat newHeight = (CGFloat)responseObject.size.height * (CGFloat)weakSelf.view.frameWidth / (CGFloat)responseObject.size.height;
-//            UIImage *res = [UIImage imageWithImage:responseObject scaledToSize:CGSizeMake(weakSelf.view.frameWidth, newHeight)];
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
-            weakSelf.tableView.tableHeaderView = imgView;
-            
-            weakSelf.fetchedImage = responseObject;
-        }];
-    }
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
+        weakSelf.tableView.tableHeaderView = imgView;
+    }];
 }
 
 @end

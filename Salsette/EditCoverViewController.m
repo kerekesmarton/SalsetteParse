@@ -11,7 +11,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "PFCover.h"
 
-#import "ParseManager.h"
+#import "ImageDataManager.h"
 
 #import "UIViewController+ActivityIndicator.h"
 
@@ -133,22 +133,15 @@
     
     PFCover *cover = self.cover;
     [self.HUD show:YES];
-    if (self.fetchedImage) {
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:self.fetchedImage];
-        self.tableView.tableHeaderView = imgView;
-    } else if (cover && cover.url) {
-        __weak EditCoverViewController *weakSelf = self;
+    
+    __weak EditCoverViewController *weakSelf = self;
+    [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
         
-        [ParseManager fetchImageWithURL:cover.url Completion:^(UIImage *responseObject) {
-            
-           
-            UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
-            weakSelf.tableView.tableHeaderView = imgView;
-            
-            weakSelf.fetchedImage = responseObject;
-            [self.HUD hide:YES];
-        }];
-    }
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
+        weakSelf.tableView.tableHeaderView = imgView;
+        
+        [self.HUD hide:YES];
+    }];
 }
 
 - (void)uploadImage:(NSData *)imageData {
@@ -169,7 +162,7 @@
             
             [cover saveInBackground];
             
-            self.fetchedImage = nil;
+            [[ImageDataManager sharedInstance] setObject:imageData forKey:cover.identifier];
             [self loadImage];
         }
         else{

@@ -12,8 +12,8 @@
 
 @implementation SideMenuFactory
 
-+ (NSArray *)menuItemsWithUser:(PFUser *)user event:(void (^)(SideMenuItem *, NSIndexPath *))event{
++ (NSArray *)menuItemsWithUser:(PFUser *)user event:(void (^)(SideMenuItem *))event update:(void (^)(SideMenuItem *))update{
     
-    return [SideMenuGroup itemsWithUser:user completion:event];
+    return [SideMenuGroup itemsWithUser:user completion:event update:update];
 }
 @end

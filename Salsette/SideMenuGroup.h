@@ -26,7 +26,7 @@ typedef enum GroupEvent {
 @property (nonatomic, strong) NSString          *groupTitle;
 @property (nonatomic, strong) NSMutableArray    *groupItems;
 
-+(NSArray *)itemsWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item, NSIndexPath *indexPath)) completion;
++(NSArray *)itemsWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) completion update:(void (^)(SideMenuItem *item))update;
 
 /*
  - main group

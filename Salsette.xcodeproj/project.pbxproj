@@ -20,6 +20,7 @@
 		3B3012C519B0A92900BE67FB /* PFEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3012C419B0A92900BE67FB /* PFEvent.m */; };
 		3B30130D19B0C3A500BE67FB /* DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3012E119B0C3A500BE67FB /* DateHelper.m */; };
 		3B30131419B0C3A500BE67FB /* UIImage+scaled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3012F019B0C3A500BE67FB /* UIImage+scaled.m */; };
+		3B49AB5819B8924100155425 /* ImageDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49AB5719B8924100155425 /* ImageDataManager.m */; };
 		3B59B0E719AF346B00C04A97 /* TWTSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B59B0E219AF346B00C04A97 /* TWTSideMenuViewController.m */; };
 		3B59B0E919AF346B00C04A97 /* TWTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B59B0E619AF346B00C04A97 /* TWTMainViewController.m */; };
 		3B59B0EC19AF34CC00C04A97 /* SideMenuManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B59B0EB19AF34CC00C04A97 /* SideMenuManager.m */; };
@@ -123,6 +124,8 @@
 		3B3012E119B0C3A500BE67FB /* DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateHelper.m; sourceTree = "<group>"; };
 		3B3012EF19B0C3A500BE67FB /* UIImage+scaled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+scaled.h"; sourceTree = "<group>"; };
 		3B3012F019B0C3A500BE67FB /* UIImage+scaled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+scaled.m"; sourceTree = "<group>"; };
+		3B49AB5619B8924100155425 /* ImageDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDataManager.h; sourceTree = "<group>"; };
+		3B49AB5719B8924100155425 /* ImageDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDataManager.m; sourceTree = "<group>"; };
 		3B59B0E119AF346B00C04A97 /* TWTSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTSideMenuViewController.h; sourceTree = "<group>"; };
 		3B59B0E219AF346B00C04A97 /* TWTSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWTSideMenuViewController.m; sourceTree = "<group>"; };
 		3B59B0E519AF346B00C04A97 /* TWTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTMainViewController.h; sourceTree = "<group>"; };
@@ -529,6 +532,8 @@
 				3B9F695619B49A3000230B03 /* ParseIncludes.m */,
 				3B691738199CD339005629CE /* ParseManager.h */,
 				3B691739199CD339005629CE /* ParseManager.m */,
+				3B49AB5619B8924100155425 /* ImageDataManager.h */,
+				3B49AB5719B8924100155425 /* ImageDataManager.m */,
 				3B9F695919B49A5600230B03 /* Model */,
 			);
 			name = "Parse Logic and Data Models";
@@ -730,6 +735,7 @@
 				3B59B0F319AF387000C04A97 /* SideMenuItem.m in Sources */,
 				3B69173A199CD339005629CE /* ParseManager.m in Sources */,
 				3B7E13C219B0C51C00B79325 /* NSObject+Additions.m in Sources */,
+				3B49AB5819B8924100155425 /* ImageDataManager.m in Sources */,
 				3B59B0E719AF346B00C04A97 /* TWTSideMenuViewController.m in Sources */,
 				3B691840199CD486005629CE /* AFHTTPSessionManager.m in Sources */,
 				3BDAD7F519B74D880086B47F /* PFDanceStyle.m in Sources */,

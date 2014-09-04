@@ -25,8 +25,7 @@
 {
     [super viewDidLoad];
     
-    CGRect imageViewRect = [[UIScreen mainScreen] bounds];
-    imageViewRect.size.width += 589;
+    CGRect imageViewRect = self.view.frame;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 5.0f;
@@ -69,6 +68,17 @@
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
 }
 
+- (void)updateItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath {
+    
+    NSMutableArray *section = [[self.dataSource objectAtIndex:indexPath.section] mutableCopy];
+    
+    [section replaceObjectAtIndex:indexPath.row withObject:item];
+    
+    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:section];
+    
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+}
+
 - (void)closeButtonPressed
 {
     [self.sideMenuViewController closeMenuAnimated:YES completion:nil];
@@ -105,6 +115,8 @@
     
     UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
     recipeImageView.image = item.itemImage;
+    
+    [item load:recipeImageView];
     
     return cell;
 }

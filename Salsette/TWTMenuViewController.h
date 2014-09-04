@@ -14,5 +14,6 @@
 
 - (void)reload;
 - (void)addItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath;
+- (void)updateItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath;
 
 @end
