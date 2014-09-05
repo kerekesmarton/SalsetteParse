@@ -14,6 +14,13 @@
 #import "PFOwner.h"
 #import "PFCover.h"
 #import "PFDanceStyle.h"
+#import "PFArtistProfile.h"
+#import "PFArtistGroupProfile.h"
+
+
+extern NSString * const MenuShouldReloadNotification;
+extern NSString * const MenuShouldAddObject;
+extern NSString * const MenuShouldRemoveObject;
 
 @interface ParseIncludes : NSObject
 

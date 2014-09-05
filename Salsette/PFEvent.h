@@ -40,7 +40,7 @@
 @property (nonatomic, strong) PFDanceStyle  *secondaryStyle;//secondary dance style
 
 
-//references//parse only
+//references, parse only
 @property (nonatomic, strong) PFUser    *pfUser;        // relationship to fetch for
 @property (nonatomic, strong) NSString  *venueID;
 @property (nonatomic, strong) NSString  *ownerID;

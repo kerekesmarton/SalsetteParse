@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const PFUserSessionDidChangeNotification;
-
 @interface ParseManager : NSObject
 
 + (void)registerAppWithLauncOptions:(NSDictionary *)dictionary;

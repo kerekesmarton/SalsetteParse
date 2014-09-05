@@ -26,6 +26,7 @@
     [super viewDidLoad];
     
     CGRect imageViewRect = self.view.frame;
+    imageViewRect.size.width -= 80;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumLineSpacing = 5.0f;
@@ -57,26 +58,32 @@
     [self.collectionView reloadData];
 }
 
-- (void)addItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath {
+- (void)addItem:(SideMenuItem *)item atSection:(NSInteger)section {
+   
+    NSMutableArray *group = [[self.dataSource objectAtIndex:section] mutableCopy];
     
-    NSMutableArray *section = [[self.dataSource objectAtIndex:indexPath.section] mutableCopy];
-    
-    [section insertObject:item atIndex:indexPath.row];
-    
-    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:section];
-    
-    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+    if (![group containsObject:item]) {
+        [group addObject:item];
+        [self.dataSource replaceObjectAtIndex:section withObject:group];
+        
+        NSInteger index = [group indexOfObject:item];
+        [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:section]]];        
+    }
 }
 
-- (void)updateItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath {
+- (void)updateItem:(SideMenuItem *)item atSection:(NSInteger)section {
     
-    NSMutableArray *section = [[self.dataSource objectAtIndex:indexPath.section] mutableCopy];
+    NSMutableArray *group = [[self.dataSource objectAtIndex:section] mutableCopy];
     
-    [section replaceObjectAtIndex:indexPath.row withObject:item];
-    
-    [self.dataSource replaceObjectAtIndex:indexPath.section withObject:section];
-    
-    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+    if ([group containsObject:item]) {
+        
+        NSInteger index = [group indexOfObject:item];
+        [group replaceObjectAtIndex:index withObject:item];
+        
+        [self.dataSource replaceObjectAtIndex:section withObject:group];
+        
+        [self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:section]]];
+    }
 }
 
 - (void)closeButtonPressed

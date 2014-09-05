@@ -12,8 +12,6 @@
 
 #import "ParseIncludes.h"
 
-NSString *const PFUserSessionDidChangeNotification = @"PFUserSessionDidChangeNotification";
-
 @implementation ParseManager
 
 

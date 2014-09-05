@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 - (void)reload;
-- (void)addItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath;
-- (void)updateItem:(SideMenuItem *)item atIndexPath:(NSIndexPath *)indexPath;
+- (void)addItem:(SideMenuItem *)item atSection:(NSInteger)section;
+- (void)updateItem:(SideMenuItem *)item atSection:(NSInteger)section;
 
 @end

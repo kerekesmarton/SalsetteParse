@@ -6,7 +6,7 @@
 //
 //
 
-#import "PFArtistsProfile.h"
+#import "PFArtistProfile.h"
 #import "PFCover.h"
 #import "PFDanceStyle.h"
 
@@ -15,7 +15,7 @@ static NSArray *fbEventGraphKeys;
 static NSArray *pfProperties;
 static NSArray *pfLocalisedDescriptions;
 
-@implementation PFArtistsProfile {
+@implementation PFArtistProfile {
     BOOL didComplete;
 }
 
@@ -25,7 +25,7 @@ static NSArray *pfLocalisedDescriptions;
 
 +(instancetype)objectWithIdentifier:(NSString *)identifier {
     
-    PFArtistsProfile *object = [PFArtistsProfile object];
+    PFArtistProfile *object = [PFArtistProfile object];
     object.identifier = identifier;
     
     return object;
@@ -68,7 +68,7 @@ static NSArray *pfLocalisedDescriptions;
             
             if (objects.count > 0) {
                 
-                PFArtistsProfile *object = [objects firstObject];
+                PFArtistProfile *object = [objects firstObject];
                 [object fetchEventDetailsWithBlock:^(id object, NSError *error) {
                     block(object,nil);
                 }];

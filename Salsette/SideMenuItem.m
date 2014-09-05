@@ -59,7 +59,6 @@
     item.itemImage = [UIImage imageNamed:@"world"];
     item.status = ItemStatusBasic;
     item.viewControllerClass = [TWTMainViewController class];
-    item.indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
     [item setItemEvent:^(SideMenuItem *item) {
         
         //check for location services.
@@ -81,7 +80,6 @@
     item.itemTitle = @"Calendar";
     item.itemImage = [UIImage imageNamed:@"calendar"];
     item.status = ItemStatusBasic;
-    item.indexPath = [NSIndexPath indexPathForItem:1 inSection:0];
     item.viewControllerClass = [TWTMainViewController class];
     
     return item;
@@ -108,7 +106,6 @@
     item.itemTitle = @"Create Event";
     item.itemImage = [UIImage imageNamed:@"favourite_place"];
     item.status = ItemStatusBasic;
-    item.indexPath = [NSIndexPath indexPathForItem:0 inSection:1];
     item.viewControllerClass = [CreateEventViewController class];
     
     return item;
@@ -121,7 +118,6 @@
     item.itemImage = [UIImage imageNamed:@"database"];
     item.status = ItemStatusBasic;
     item.viewControllerClass = [EditEventTableViewController class];
-    
     __weak SideMenuItem *weakItem = item;
     [item setItemEvent:^(UIImageView *imageView) {
         SideMenuItem *strongItem = weakItem;
@@ -143,6 +139,19 @@
     return item;
 }
 
++ (SideMenuItem *)eventItemWithEvent:(MyPFObject *)event {
+    
+    SideMenuItem *item = [[SideMenuItem alloc] init];
+    item.itemTitle = @"Event";
+    item.itemImage = [UIImage imageNamed:@"database"];
+    item.status = ItemStatusBasic;
+    item.viewControllerClass = [EditEventTableViewController class];
+    item.itemObject = event;
+    item.section = 1;
+    
+    return item;
+}
+
 + (SideMenuItem *)userItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update {
     
     SideMenuItem *item = [[SideMenuItem alloc] init];
@@ -150,7 +159,6 @@
     item.itemImage = [UIImage imageNamed:@"user_male-128"];
     item.status = ItemStatusBasic;
     item.viewControllerClass = [UserDetailsViewController class];
-    item.indexPath = [NSIndexPath indexPathForItem:0 inSection:2];
     
     [item setItemEvent:^(UIImageView *imageView) {
 
@@ -166,4 +174,56 @@
     return item;
 }
 
++(SideMenuItem *)fetchedArtistProfile:(PFUser *)user update:(void (^)(SideMenuItem *))update {
+    
+    SideMenuItem *item = [[SideMenuItem alloc] init];
+    item.itemTitle = @"Artist";
+    item.itemImage = [UIImage imageNamed:@"user_male-128"];
+    item.status = ItemStatusBasic;
+    item.viewControllerClass = [PFObjectTableViewController class];
+    
+    __weak SideMenuItem *weakItem = item;
+    [item setItemEvent:^(UIImageView *imageView) {
+        SideMenuItem *strongItem = weakItem;
+        
+        PFEvent *event = (PFEvent *)strongItem.itemObject;
+        PFCover *cover = event.coverPhoto;
+        
+        [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+            
+            CGSize size = imageView.image.size;
+            UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
+            imageView.image = scaledImaged;
+            imageView.layer.cornerRadius = 8.0f;
+            imageView.layer.masksToBounds = YES;
+        }];
+        
+    }];
+    
+    return item;
+}
+
+-(NSString *)description {
+    return self.itemTitle;
+}
+
+-(BOOL)isEqual:(id)object {
+    
+    if ([object isKindOfClass:[SideMenuItem class]]) {
+        SideMenuItem *item = (SideMenuItem *)object;
+        MyPFObject *itemObject = item.itemObject;
+        
+        if (![itemObject isKindOfClass:[self.itemObject class]]) {
+            return NO;
+        }
+                
+        if (itemObject && self.itemObject) {
+            
+            return [itemObject.identifier isEqual:self.itemObject.identifier];
+            
+        } else return NO;
+    } else {
+        return [super isEqual:object];
+    }
+}
 @end

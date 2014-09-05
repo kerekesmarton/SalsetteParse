@@ -19,9 +19,7 @@
 
 #import "ImageDataManager.h"
 
-#import "PFEvent.h"
-#import "PFCover.h"
-#import "PFDanceStyle.h"
+#import "ParseIncludes.h"
 
 @interface EditEventTableViewController ()
 
@@ -171,7 +169,7 @@
     PFEvent *event = self.event;
     self.HUD.mode = MBProgressHUDModeIndeterminate;
     [self.HUD show:YES];
-    event.pfUser = [PFUser currentUser];
+    event.pfUser = [PFUser currentUser];    
     
     __weak EditEventTableViewController *weakSelf = self;
     
@@ -184,6 +182,7 @@
             
             UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
             weakSelf.navigationItem.rightBarButtonItem = start;
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldAddObject object:self.event]];
         }
     }];
     

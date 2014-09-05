@@ -10,7 +10,7 @@
 
 @class PFDanceStyle,PFCover;
 
-@interface PFArtistsProfile : MyPFObject
+@interface PFArtistProfile : MyPFObject
 
 +(instancetype)objectWithIdentifier:(NSString *)identifier;
 
@@ -23,5 +23,7 @@
 @property (nonatomic, strong) NSString      *coverPhotoID;
 @property (nonatomic, strong) NSString      *primaryStyleID;
 @property (nonatomic, strong) NSString      *secondaryStyleID;
+
+- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
 
 @end

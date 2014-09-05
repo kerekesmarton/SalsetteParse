@@ -50,7 +50,7 @@
 		3B691846199CD486005629CE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B69183D199CD486005629CE /* AFURLSessionManager.m */; };
 		3B69186D199CFF0A005629CE /* AccountDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B69186B199CFF0A005629CE /* AccountDetailsTableViewController.m */; };
 		3B69186E199CFF0A005629CE /* AccountDetailsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B69186C199CFF0A005629CE /* AccountDetailsTableViewController.xib */; };
-		3B707A0819B8B32B001C8164 /* PFArtistsProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B707A0719B8B32B001C8164 /* PFArtistsProfile.m */; };
+		3B707A0819B8B32B001C8164 /* PFArtistProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B707A0719B8B32B001C8164 /* PFArtistProfile.m */; };
 		3B707A0B19B8B8D5001C8164 /* PFArtistGroupProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B707A0A19B8B8D5001C8164 /* PFArtistGroupProfile.m */; };
 		3B7E13BA19B0C51C00B79325 /* NSArray+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E139019B0C51C00B79325 /* NSArray+Additions.m */; };
 		3B7E13BD19B0C51C00B79325 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E139619B0C51C00B79325 /* NSDate+Additions.m */; };
@@ -180,8 +180,8 @@
 		3B69186A199CFF0A005629CE /* AccountDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountDetailsTableViewController.h; sourceTree = "<group>"; };
 		3B69186B199CFF0A005629CE /* AccountDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountDetailsTableViewController.m; sourceTree = "<group>"; };
 		3B69186C199CFF0A005629CE /* AccountDetailsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDetailsTableViewController.xib; sourceTree = "<group>"; };
-		3B707A0619B8B32B001C8164 /* PFArtistsProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFArtistsProfile.h; sourceTree = "<group>"; };
-		3B707A0719B8B32B001C8164 /* PFArtistsProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFArtistsProfile.m; sourceTree = "<group>"; };
+		3B707A0619B8B32B001C8164 /* PFArtistProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFArtistProfile.h; sourceTree = "<group>"; };
+		3B707A0719B8B32B001C8164 /* PFArtistProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFArtistProfile.m; sourceTree = "<group>"; };
 		3B707A0919B8B8D5001C8164 /* PFArtistGroupProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFArtistGroupProfile.h; sourceTree = "<group>"; };
 		3B707A0A19B8B8D5001C8164 /* PFArtistGroupProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFArtistGroupProfile.m; sourceTree = "<group>"; };
 		3B7E138F19B0C51C00B79325 /* NSArray+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Additions.h"; sourceTree = "<group>"; };
@@ -560,8 +560,8 @@
 				3BDAD7E319B71E8C0086B47F /* PFCover.m */,
 				3BDAD7F319B74D880086B47F /* PFDanceStyle.h */,
 				3BDAD7F419B74D880086B47F /* PFDanceStyle.m */,
-				3B707A0619B8B32B001C8164 /* PFArtistsProfile.h */,
-				3B707A0719B8B32B001C8164 /* PFArtistsProfile.m */,
+				3B707A0619B8B32B001C8164 /* PFArtistProfile.h */,
+				3B707A0719B8B32B001C8164 /* PFArtistProfile.m */,
 				3B707A0919B8B8D5001C8164 /* PFArtistGroupProfile.h */,
 				3B707A0A19B8B8D5001C8164 /* PFArtistGroupProfile.m */,
 			);
@@ -701,7 +701,7 @@
 				3B30131419B0C3A500BE67FB /* UIImage+scaled.m in Sources */,
 				3B691841199CD486005629CE /* AFNetworkReachabilityManager.m in Sources */,
 				3B7E13BA19B0C51C00B79325 /* NSArray+Additions.m in Sources */,
-				3B707A0819B8B32B001C8164 /* PFArtistsProfile.m in Sources */,
+				3B707A0819B8B32B001C8164 /* PFArtistProfile.m in Sources */,
 				3B691846199CD486005629CE /* AFURLSessionManager.m in Sources */,
 				3B691844199CD486005629CE /* AFURLRequestSerialization.m in Sources */,
 				3B691733199CD1B5005629CE /* UserDetailsViewController.m in Sources */,

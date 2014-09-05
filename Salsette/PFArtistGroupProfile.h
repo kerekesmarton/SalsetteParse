@@ -14,19 +14,21 @@
 
 +(instancetype)objectWithIdentifier:(NSString *)identifier;
 
-@property (nonatomic, strong) NSString              *groupName;
-@property (nonatomic, strong) NSMutableDictionary   *members;
-@property (nonatomic, strong) NSMutableDictionary   *admins;
-
+@property (nonatomic, strong) NSString          *groupName;
 @property (nonatomic, strong) NSString          *shortBio;
+
 @property (nonatomic, strong) PFCover           *coverPhoto;
 @property (nonatomic, strong) PFDanceStyle      *primaryStyle;
 @property (nonatomic, strong) PFDanceStyle      *secondaryStyle;
+@property (nonatomic, strong) NSMutableDictionary   *members;
+@property (nonatomic, strong) NSMutableDictionary   *admins;
 
 @property (nonatomic, strong) NSString          *coverPhotoID;
 @property (nonatomic, strong) NSString          *primaryStyleID;
 @property (nonatomic, strong) NSString          *secondaryStyleID;
 @property (nonatomic, strong) NSMutableArray    *memberIDs;
 @property (nonatomic, strong) NSMutableArray    *adminIDs;
+
+- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
 
 @end

@@ -9,6 +9,8 @@
 #import "SideMenuGroup.h"
 #import "SideMenuItem.h"
 #import "PFEvent.h"
+#import "PFArtistGroupProfile.h"
+#import "PFArtistProfile.h"
 
 @implementation SideMenuGroup
 
@@ -49,7 +51,7 @@
                 }
                 SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
                 item.itemObject = event;
-                item.indexPath = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                item.section = 1;
                 block(item);
             }];
         }];
@@ -67,6 +69,70 @@
 
 + (NSArray *)userGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
 
+    if (user) {
+        
+        NSMutableArray *results = [NSMutableArray array];
+        
+        //find..
+        PFQuery *artistquery = [PFArtistProfile query];
+        [artistquery whereKey:@"identifier" equalTo:[user objectId]];
+        [artistquery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
+            if (queryError) {
+                NSLog(@"%@",[queryError userInfo].description);
+            } else {
+                [results addObjectsFromArray:objects];
+            }
+            //find next..
+            PFQuery *memberQuery = [PFArtistGroupProfile query];
+            [memberQuery whereKey:@"members" containsAllObjectsInArray:@[[user objectId]]];
+            [memberQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
+                if (queryError) {
+                    NSLog(@"%@",[queryError userInfo].description);
+                } else {
+                    [results addObjectsFromArray:objects];
+                }
+                // find next..
+                PFQuery *groupQuery = [PFArtistGroupProfile query];
+                [groupQuery whereKey:@"admins" containsAllObjectsInArray:@[[user objectId]]];
+                [groupQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
+                    if (queryError) {
+                        NSLog(@"%@",[queryError userInfo].description);
+                    } else {
+                        [results addObjectsFromArray:objects];
+                    }
+                    
+                    //iterate and return
+                    [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        
+                        if ([obj isKindOfClass:[PFArtistProfile class]]) {
+                            PFArtistProfile *object = obj;
+                            [object fetchEventDetailsWithBlock:^(id event, NSError *eventError) {
+                                if (eventError) {
+                                    NSLog(@"%@",[eventError userInfo].description);
+                                }
+                                SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
+                                item.itemObject = event;
+                                item.section = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                                block(item);
+                            }];
+                        } else if ([obj isKindOfClass:[PFArtistGroupProfile class]]) {
+                            PFArtistGroupProfile *object = obj;
+                            [object fetchEventDetailsWithBlock:^(id event, NSError *eventError) {
+                                if (eventError) {
+                                    NSLog(@"%@",[eventError userInfo].description);
+                                }
+                                SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
+                                item.itemObject = event;
+                                item.section = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                                block(item);
+                            }];
+                        }
+                    }];
+                }];
+            }];
+        }];
+    }
+    
     return @[[SideMenuItem userItem:user update:update]];
 }
 @end

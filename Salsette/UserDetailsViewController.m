@@ -4,6 +4,7 @@
 #import "UserDetailsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ParseManager.h"
+#import "ParseIncludes.h"
 #import "AccountDetailsTableViewController.h"
 #import "LoginViewController.h"
 #import "TWTSideMenuViewController.h"
@@ -18,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Facebook Profile";
+    self.title = @"Profile";
     self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
     
     UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Open" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
@@ -132,7 +133,7 @@
     // Logout user, this automatically clears the cache
     [PFUser logOut];
     
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:PFUserSessionDidChangeNotification object:[PFUser currentUser]]];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldReloadNotification object:[PFUser currentUser]]];
     
     // Return to login view controller
     LoginViewController *login = [[LoginViewController alloc] init];

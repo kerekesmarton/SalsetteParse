@@ -8,6 +8,12 @@
 
 #import "ParseIncludes.h"
 
+NSString *const MenuShouldReloadNotification = @"MenuShouldReloadNotification";
+
+NSString *const MenuShouldAddObject = @"MenuShouldAddObject";
+
+NSString *const MenuShouldRemoveObject = @"MenuShouldRemoveObject";
+
 @implementation ParseIncludes
 
 @end

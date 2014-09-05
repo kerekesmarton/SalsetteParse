@@ -3,7 +3,8 @@
 
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
-#import "ParseManager.h"
+//#import "ParseManager.h"
+#import "ParseIncludes.h"
 #import "TWTSideMenuViewController.h"
 
 @implementation LoginViewController
@@ -47,7 +48,7 @@
             } else {
                 NSLog(@"User with facebook logged in!");
             }
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:PFUserSessionDidChangeNotification object:[PFUser currentUser]]];
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldReloadNotification object:[PFUser currentUser]]];
             [self dismissViewControllerAnimated:YES completion:^{
                 //
             }];

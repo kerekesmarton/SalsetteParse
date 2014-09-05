@@ -9,7 +9,7 @@
 #import "PFArtistGroupProfile.h"
 #import "PFCover.h"
 #import "PFDanceStyle.h"
-#import "PFArtistsProfile.h"
+#import "PFArtistProfile.h"
 
 static NSArray *fbEventGraphKeys;
 
@@ -22,7 +22,7 @@ static NSArray *pfLocalisedDescriptions;
 
 @dynamic groupName,members,admins,shortBio,coverPhoto,primaryStyle,secondaryStyle;
 
-@dynamic coverPhotoID,primaryStyleID,secondaryStyleID,memberIDs;
+@dynamic coverPhotoID,primaryStyleID,secondaryStyleID,memberIDs,adminIDs;
 
 
 +(instancetype)objectWithIdentifier:(NSString *)identifier {
@@ -116,7 +116,7 @@ static NSArray *pfLocalisedDescriptions;
     }];
     
     for (NSString *identifier in self.memberIDs) {
-        [PFArtistsProfile queryForID:identifier completion:^(id object, NSError *e) {
+        [PFArtistProfile queryForID:identifier completion:^(id object, NSError *e) {
             if (e) {
                 NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[e userInfo]);
             } else {
@@ -127,7 +127,7 @@ static NSArray *pfLocalisedDescriptions;
     }
     
     for (NSString *identifier in self.adminIDs) {
-        [PFArtistsProfile queryForID:identifier completion:^(id object, NSError *e) {
+        [PFArtistProfile queryForID:identifier completion:^(id object, NSError *e) {
             if (e) {
                 NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[e userInfo]);
             } else {
@@ -155,7 +155,7 @@ static NSArray *pfLocalisedDescriptions;
         isReady = NO;
     }
     
-    [self.members enumerateKeysAndObjectsUsingBlock:^(NSString *key, PFArtistsProfile *obj, BOOL *stop) {
+    [self.members enumerateKeysAndObjectsUsingBlock:^(NSString *key, PFArtistProfile *obj, BOOL *stop) {
         
         if (![obj isDataAvailable]) {
             isReady = NO;
@@ -163,7 +163,7 @@ static NSArray *pfLocalisedDescriptions;
         }
     }];
     
-    [self.admins enumerateKeysAndObjectsUsingBlock:^(NSString *key, PFArtistsProfile *obj, BOOL *stop) {
+    [self.admins enumerateKeysAndObjectsUsingBlock:^(NSString *key, PFArtistProfile *obj, BOOL *stop) {
         
         if (![obj isDataAvailable]) {
             isReady = NO;

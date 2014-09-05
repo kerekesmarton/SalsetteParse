@@ -158,8 +158,6 @@
             
             cover.url = [imageFile url];
             
-            cover.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-            
             [cover saveInBackground];
             
             [[ImageDataManager sharedInstance] setObject:imageData forKey:cover.identifier];

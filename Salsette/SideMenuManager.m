@@ -11,7 +11,8 @@
 #import "TWTSideMenuViewController.h"
 #import "SideMenuFactory.h"
 #import "TWTMenuViewController.h"
-#import "ParseManager.h"
+//#import "ParseManager.h"
+#import "ParseIncludes.h"
 
 @interface SideMenuManager () <TWTSideMenuViewControllerDelegate>
 
@@ -43,36 +44,40 @@
     [window makeKeyAndVisible];
     
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbSessionDidSetActiveSession:) name:PFUserSessionDidChangeNotification];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMenuWithNotification:) name:MenuShouldReloadNotification];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addItemToMenuWithNotification:) name:MenuShouldAddObject];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMenuWithNotification:) name:MenuShouldRemoveObject];
 }
 
 - (void)loadMenuDataSource {
     
     self.menuDataSource = [SideMenuFactory menuItemsWithUser:[PFUser currentUser] event:^(SideMenuItem *item) {
-        if (item && item.indexPath) {
+        if (item && item.section) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self.menuViewController addItem:item atIndexPath:item.indexPath];
+                [self.menuViewController addItem:item atSection:item.section];
             });
         }
     } update:^(SideMenuItem *item) {
-        if (item && item.indexPath) {
+        if (item && item.section) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-//                [self.menuViewController updateItem:item atIndexPath:item.indexPath];
-                
             });
         }
     }];
-    
 }
-- (void)fbSessionDidSetActiveSession:(NSNotification *)notification {
+- (void)reloadMenuWithNotification:(NSNotification *)notification {
     
     if ([NSThread isMainThread]) {
         [self loadMenuDataSource];
         self.menuViewController.dataSource = [self.menuDataSource mutableCopy];
         [self.menuViewController reload];
     }
+}
+
+- (void)addItemToMenuWithNotification:(NSNotification *)notification {
+    
+    SideMenuItem *item = [SideMenuItem eventItemWithEvent:notification.object];
+    [self.menuViewController addItem:item atSection:item.section];
 }
 
 #pragma mark - TWTSideMenuViewControllerDelegate

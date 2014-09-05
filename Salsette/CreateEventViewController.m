@@ -50,7 +50,6 @@
 }
 - (IBAction)goButtonPressed:(id)sender {
     
-    self.eventLinkTextField.text = @"https://www.facebook.com/events/462430333854975/";
     if (!self.eventLinkTextField.text) {
         return;
     }
@@ -96,11 +95,14 @@
                                           
                                           [weakSelf.HUD hide:YES];
                                           EditEventTableViewController *edit = [[EditEventTableViewController alloc] initWithNibName:NSStringFromClass([EditEventTableViewController class]) bundle:nil];
-                                          if (obj) {
+                                          if (obj && [obj.ACL getWriteAccessForUser:[PFUser currentUser]]) {
                                               edit.event = obj;
                                           } else {
+                                              event.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+                                              [event.ACL setPublicReadAccess:YES];
                                               edit.event = event;
-                                          }
+                                              
+                                          }                                          
                                           
                                           [weakSelf presentViewController:[[UINavigationController alloc] initWithRootViewController:edit] animated:YES completion:^{ }];
                                       }];

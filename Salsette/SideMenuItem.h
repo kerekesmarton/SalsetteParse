@@ -26,7 +26,7 @@ typedef enum ItemStatus {
 @property (nonatomic, strong) Class         viewControllerClass;
 @property (nonatomic, strong) void          (^itemEvent)(id);
 @property (nonatomic, assign) ItemStatus    status;
-@property (nonatomic, strong) NSIndexPath   *indexPath;
+@property (nonatomic, assign) NSInteger     section;
 
 -(void)load:(UIImageView *)imageView;
 
@@ -35,6 +35,9 @@ typedef enum ItemStatus {
 
 + (SideMenuItem *)createEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 + (SideMenuItem *)fetchedEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
++ (SideMenuItem *)eventItemWithEvent:(MyPFObject *)event;
 
 + (SideMenuItem *)userItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
++ (SideMenuItem *)fetchedArtistProfile:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
+
 @end
