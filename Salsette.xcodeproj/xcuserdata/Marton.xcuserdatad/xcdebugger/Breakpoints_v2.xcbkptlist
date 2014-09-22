@@ -19,13 +19,59 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Salsette/CreateEventViewController.m"
-            timestampString = "431614755.90296"
+            filePath = "Salsette/CreateArtistViewController.m"
+            timestampString = "433082457.095009"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "-goButtonPressed:"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[CreateArtistViewController actionSheet:clickedButtonAtIndex:]"
+                  moduleName = "Salsette"
+                  urlString = "file:///Users/Marton/Documents/Salsette/Salsette/CreateArtistViewController.m"
+                  timestampString = "433084049.460989"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "186">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__63-[CreateArtistViewController actionSheet:clickedButtonAtIndex:]_block_invoke"
+                  moduleName = "Salsette"
+                  urlString = "file:///Users/Marton/Documents/Salsette/Salsette/CreateArtistViewController.m"
+                  timestampString = "433084049.46119"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "107">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Salsette/CreateArtistViewController.m"
+            timestampString = "433084060.853225"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +81,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Salsette/TWTMenuViewController.m"
-            timestampString = "431618429.361963"
+            filePath = "Salsette/CreateArtistViewController.m"
+            timestampString = "433084066.418602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "-addItem:atSection:"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

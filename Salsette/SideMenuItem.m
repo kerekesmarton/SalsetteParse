@@ -12,6 +12,7 @@
 #import "CreateEventViewController.h"
 #import "TWTMainViewController.h"
 #import "EditEventTableViewController.h"
+#import "CreateArtistViewController.h"
 
 #import "ParseIncludes.h"
 #import "ImageDataManager.h"
@@ -199,6 +200,32 @@
         }];
         
     }];
+    
+    return item;
+}
+
++ (SideMenuItem *)createArtistItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update {
+    
+    if (!user) {
+        return nil;
+    }
+    
+    if ([[PFUser currentUser] objectForKey:@"account_details"][@"type"]) {
+        
+        NSNumber *type = [[PFUser currentUser] objectForKey:@"account_details"][@"type"];
+        if (!type) {
+            return nil;
+        }
+        if ([type intValue] != 1) {
+            return nil;
+        }
+    }
+    
+    SideMenuItem *item = [[SideMenuItem alloc] init];
+    item.itemTitle = @"Create Artist Page";
+    item.itemImage = [UIImage imageNamed:@"user_male-128"];
+    item.status = ItemStatusBasic;
+    item.viewControllerClass = [CreateArtistViewController class];
     
     return item;
 }

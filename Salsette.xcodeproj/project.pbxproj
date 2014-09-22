@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30C949AC1829561000B17666 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C949AB1829561000B17666 /* FacebookSDK.framework */; };
 		30C949AE1829561800B17666 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C949AD1829561800B17666 /* Parse.framework */; };
+		3B18CC9619BA01AF007AC8D4 /* CreateArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B18CC9519BA01AF007AC8D4 /* CreateArtistViewController.m */; };
 		3B2430FD19B22B5500B13215 /* PFVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2430FC19B22B5500B13215 /* PFVenue.m */; };
 		3B3012A119B0913D00BE67FB /* TWTMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3012A019B0913D00BE67FB /* TWTMenuViewController.m */; };
 		3B3012A519B0940600BE67FB /* SideMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B3012A419B0940600BE67FB /* SideMenuCollectionViewCell.xib */; };
@@ -91,6 +92,9 @@
 		3BDAD7F219B739F70086B47F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAD7F119B739F70086B47F /* MBProgressHUD.m */; };
 		3BDAD7F519B74D880086B47F /* PFDanceStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAD7F419B74D880086B47F /* PFDanceStyle.m */; };
 		3BDAD7F819B750520086B47F /* EditDanceStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAD7F719B750520086B47F /* EditDanceStyleViewController.m */; };
+		3BF777B119CC6DD10069F121 /* CreateArtistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BF777B019CC6DD10069F121 /* CreateArtistViewController.xib */; };
+		3BF777B519CC72D60069F121 /* EditArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF777B319CC72D60069F121 /* EditArtistViewController.m */; };
+		3BF777B619CC72D60069F121 /* EditArtistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BF777B419CC72D60069F121 /* EditArtistViewController.xib */; };
 		6D10F48316DD68E000690A0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D10F48216DD68E000690A0F /* CoreLocation.framework */; };
 		C425016D161BBAE400474BCD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4250169161BBAE400474BCD /* StoreKit.framework */; };
 		C4250170161BBAEE00474BCD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C425016F161BBAEE00474BCD /* libz.dylib */; };
@@ -108,6 +112,8 @@
 /* Begin PBXFileReference section */
 		30C949AB1829561000B17666 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		30C949AD1829561800B17666 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		3B18CC9419BA01AF007AC8D4 /* CreateArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateArtistViewController.h; sourceTree = "<group>"; };
+		3B18CC9519BA01AF007AC8D4 /* CreateArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateArtistViewController.m; sourceTree = "<group>"; };
 		3B2430FB19B22B5500B13215 /* PFVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFVenue.h; sourceTree = "<group>"; };
 		3B2430FC19B22B5500B13215 /* PFVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFVenue.m; sourceTree = "<group>"; };
 		3B30129F19B0913D00BE67FB /* TWTMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWTMenuViewController.h; sourceTree = "<group>"; };
@@ -250,6 +256,10 @@
 		3BDAD7F419B74D880086B47F /* PFDanceStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFDanceStyle.m; sourceTree = "<group>"; };
 		3BDAD7F619B750520086B47F /* EditDanceStyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDanceStyleViewController.h; sourceTree = "<group>"; };
 		3BDAD7F719B750520086B47F /* EditDanceStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDanceStyleViewController.m; sourceTree = "<group>"; };
+		3BF777B019CC6DD10069F121 /* CreateArtistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateArtistViewController.xib; sourceTree = "<group>"; };
+		3BF777B219CC72D50069F121 /* EditArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditArtistViewController.h; sourceTree = "<group>"; };
+		3BF777B319CC72D60069F121 /* EditArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditArtistViewController.m; sourceTree = "<group>"; };
+		3BF777B419CC72D60069F121 /* EditArtistViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditArtistViewController.xib; sourceTree = "<group>"; };
 		6D10F48216DD68E000690A0F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C4250169161BBAE400474BCD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C425016F161BBAEE00474BCD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -290,6 +300,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B18CC9719BA01B4007AC8D4 /* Artists */ = {
+			isa = PBXGroup;
+			children = (
+				3B18CC9419BA01AF007AC8D4 /* CreateArtistViewController.h */,
+				3B18CC9519BA01AF007AC8D4 /* CreateArtistViewController.m */,
+				3BF777B019CC6DD10069F121 /* CreateArtistViewController.xib */,
+				3BF777B219CC72D50069F121 /* EditArtistViewController.h */,
+				3BF777B319CC72D60069F121 /* EditArtistViewController.m */,
+				3BF777B419CC72D60069F121 /* EditArtistViewController.xib */,
+			);
+			name = Artists;
+			sourceTree = "<group>";
+		};
 		3B3012B519B09FC500BE67FB /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +392,7 @@
 				3B9F695419B499FD00230B03 /* Parse Logic and Data Models */,
 				3B87531419B5E4D600C4E40C /* Viewer */,
 				3B3012B519B09FC500BE67FB /* Events */,
+				3B18CC9719BA01B4007AC8D4 /* Artists */,
 				3B59B0E019AF345B00C04A97 /* Layout */,
 				3B691869199CFB1C005629CE /* Account */,
 				3B3012C619B0C3A500BE67FB /* Helpers */,
@@ -664,6 +688,7 @@
 				3B88C83219B07A4300C30457 /* Icon.png in Resources */,
 				3B88C83319B07A4300C30457 /* Icon@2x.png in Resources */,
 				3B691726199CD1B5005629CE /* Default@2x.png in Resources */,
+				3BF777B619CC72D60069F121 /* EditArtistViewController.xib in Resources */,
 				3B691727199CD1B5005629CE /* InfoPlist.strings in Resources */,
 				3B69172F199CD1B5005629CE /* LoginViewController.xib in Resources */,
 				3B88C83719B07A4300C30457 /* login-button-small@2x.png in Resources */,
@@ -672,6 +697,7 @@
 				3B691724199CD1B5005629CE /* Default-568h@2x.png in Resources */,
 				3B3012C219B0A73000BE67FB /* EditEventTableViewController.xib in Resources */,
 				3B88C83619B07A4300C30457 /* login-button-small.png in Resources */,
+				3BF777B119CC6DD10069F121 /* CreateArtistViewController.xib in Resources */,
 				3B691732199CD1B5005629CE /* TableHeaderView.xib in Resources */,
 				3B87531319B5E4CF00C4E40C /* PFObjectTableViewController.xib in Resources */,
 				3B88C83919B07B3500C30457 /* world.png in Resources */,
@@ -723,6 +749,7 @@
 				3BDAD7F219B739F70086B47F /* MBProgressHUD.m in Sources */,
 				3B7E13C019B0C51C00B79325 /* NSMutableDictionary+Additions.m in Sources */,
 				3B59B0F619AF394C00C04A97 /* SideMenuGroup.m in Sources */,
+				3B18CC9619BA01AF007AC8D4 /* CreateArtistViewController.m in Sources */,
 				3B7E13C619B0C51C00B79325 /* UIApplication+Additions.m in Sources */,
 				3B7E13BE19B0C51C00B79325 /* NSDictionary+Additions.m in Sources */,
 				3B7E13CD19B0C51C00B79325 /* UIView+Additions.m in Sources */,
@@ -731,6 +758,7 @@
 				3B69183F199CD486005629CE /* AFHTTPRequestOperationManager.m in Sources */,
 				3B691842199CD486005629CE /* AFSecurityPolicy.m in Sources */,
 				3B9F695719B49A3000230B03 /* ParseIncludes.m in Sources */,
+				3BF777B519CC72D60069F121 /* EditArtistViewController.m in Sources */,
 				3B2430FD19B22B5500B13215 /* PFVenue.m in Sources */,
 				3B7E13CA19B0C51C00B79325 /* UIImage+Additions.m in Sources */,
 				3B7E13C819B0C51C00B79325 /* UIColor+Additions.m in Sources */,

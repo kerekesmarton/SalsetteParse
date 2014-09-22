@@ -27,6 +27,8 @@
 
 +(NSArray *)mainGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
     
+    //section 0
+    
     return @[[SideMenuItem mapItem:user update:update],
              [SideMenuItem calendarItem:user update:update]];
 }
@@ -34,6 +36,8 @@
 
 + (NSArray *)extrasGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
 
+    //section 1
+    
     if (!user) {
         return [NSArray array];
     }
@@ -59,16 +63,23 @@
     
     SideMenuItem *createItem = [SideMenuItem createEventItem:user update:update];
     
-    return @[createItem];
+    NSMutableArray *res = [NSMutableArray array];
+    if (createItem) {
+        [res addObject:createItem];
+    }
+    return [NSArray arrayWithArray:res];
 }
 
 + (NSArray *)savedItemGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
     
+    //section 2
     return [NSArray array];
 }
 
 + (NSArray *)userGroupWithUser:(PFUser *)user completion:(void (^)(SideMenuItem *item)) block update:(void (^)(SideMenuItem *item))update{
 
+    //section 3
+    
     if (user) {
         
         NSMutableArray *results = [NSMutableArray array];
@@ -112,7 +123,7 @@
                                 }
                                 SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
                                 item.itemObject = event;
-                                item.section = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                                item.section = 3;
                                 block(item);
                             }];
                         } else if ([obj isKindOfClass:[PFArtistGroupProfile class]]) {
@@ -123,7 +134,7 @@
                                 }
                                 SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
                                 item.itemObject = event;
-                                item.section = [NSIndexPath indexPathForItem:idx+1 inSection:1];
+                                item.section = 3;
                                 block(item);
                             }];
                         }
@@ -133,6 +144,12 @@
         }];
     }
     
-    return @[[SideMenuItem userItem:user update:update]];
+    SideMenuItem *create = [SideMenuItem createArtistItem:user update:update];
+    
+    NSMutableArray *res = [NSMutableArray arrayWithObject:[SideMenuItem userItem:user update:update]];
+    if (create) {
+        [res addObject:create];
+    }
+    return [NSArray arrayWithArray:res];
 }
 @end
