@@ -57,7 +57,7 @@ static NSArray *pfLocalisedDescriptions;
 +(void)load {
     
     if (!fbEventGraphKeys) {
-        fbEventGraphKeys = @[@"city", @"country", @"id", @"latitude", @"longitude", @"street", @"zip"];
+        fbEventGraphKeys = @[@"id",@"city", @"country", @"latitude", @"longitude", @"street", @"zip"];
     }
     if (!fbProperties) {
         fbProperties = @[@"city", @"country", @"street", @"zip"];

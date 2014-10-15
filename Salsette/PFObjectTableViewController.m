@@ -111,7 +111,8 @@
 
 -(void)configureCell:(DefaultTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     // Display the data in the table
-    cell.titleLabel.text = [self.object keyForIndex:indexPath];
+    NSString *key = [self.object keyForIndex:indexPath];
+    cell.titleLabel.text = key;
     cell.accessoryType = UITableViewCellAccessoryNone;
     
     id obj = [self.object objectForIndex:indexPath];

@@ -10,7 +10,6 @@
 
 #import "EditEventTableViewController.h"
 #import "EditCoverViewController.h"
-#import "PFObjectTableViewController.h"
 #import "EditDanceStyleViewController.h"
 
 #import "UIViewController+ActivityIndicator.h"
@@ -166,10 +165,9 @@
 
 - (void)startButtonPressed {
     
-    PFEvent *event = self.event;
+    self.event.pfUser = [PFUser currentUser];
     self.HUD.mode = MBProgressHUDModeIndeterminate;
     [self.HUD show:YES];
-    event.pfUser = [PFUser currentUser];    
     
     __weak EditEventTableViewController *weakSelf = self;
     
@@ -180,9 +178,9 @@
         }
         if (succeeded) {
             
-            UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
+            UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:weakSelf action:@selector(startButtonPressed)];
             weakSelf.navigationItem.rightBarButtonItem = start;
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldAddObject object:self.event]];
+            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldAddObject object:weakSelf.event]];
         }
     }];
     

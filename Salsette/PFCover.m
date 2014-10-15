@@ -25,7 +25,31 @@ static NSArray *pfLocalisedDescriptions;
     return cover;
 }
 
++(instancetype)objectWithDictionary:(NSDictionary *)graph {
+    
+    PFCover *cover = [self object];
+    
+    for (NSString *key in fbEventGraphKeys) {
+        
+        id obj = graph[key];
+        
+        if ([key isEqualToString:@"cover_id"]) {
+            
+            cover.identifier = obj;
+        } else if ([key isEqualToString:@"source"]) {
+            
+            cover.url = obj;
+        }
+    }
+    
+    return cover;
+}
+
 +(void)load {
+    
+    if (!fbEventGraphKeys) {
+        fbEventGraphKeys = @[@"cover_id",@"source"];
+    }
     
     if (!pfProperties) {
         pfProperties = @[@"url"];

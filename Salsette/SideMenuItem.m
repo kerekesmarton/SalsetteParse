@@ -13,7 +13,7 @@
 #import "TWTMainViewController.h"
 #import "EditEventTableViewController.h"
 #import "CreateArtistViewController.h"
-
+#import "EditArtistViewController.h"
 #import "ParseIncludes.h"
 #import "ImageDataManager.h"
 
@@ -181,7 +181,7 @@
     item.itemTitle = @"Artist";
     item.itemImage = [UIImage imageNamed:@"user_male-128"];
     item.status = ItemStatusBasic;
-    item.viewControllerClass = [PFObjectTableViewController class];
+    item.viewControllerClass = [EditArtistViewController class];
     
     __weak SideMenuItem *weakItem = item;
     [item setItemEvent:^(UIImageView *imageView) {

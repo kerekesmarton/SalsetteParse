@@ -46,8 +46,8 @@ static NSArray *pfLocalisedDescriptions;
             event.identifier = obj;
         } else if ([key isEqualToString:@"cover"]) {
             
-            event.coverPhoto = [PFCover objectWithURL:obj identifier:event.identifier];
-            event.coverID = event.identifier;
+            event.coverPhoto = [PFCover objectWithDictionary:obj];
+            event.coverID = event.coverPhoto.identifier;
         }
         else if ([key isEqualToString:@"description"]) {
             event.longDesc = obj;

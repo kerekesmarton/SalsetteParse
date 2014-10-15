@@ -86,7 +86,7 @@
         
         //find..
         PFQuery *artistquery = [PFArtistProfile query];
-        [artistquery whereKey:@"identifier" equalTo:[user objectId]];
+        [artistquery whereKey:@"pfUser" containedIn:@[[PFUser currentUser]]];
         [artistquery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
             if (queryError) {
                 NSLog(@"%@",[queryError userInfo].description);
@@ -95,7 +95,7 @@
             }
             //find next..
             PFQuery *memberQuery = [PFArtistGroupProfile query];
-            [memberQuery whereKey:@"members" containsAllObjectsInArray:@[[user objectId]]];
+            [memberQuery whereKey:@"members" containsAllObjectsInArray:@[[PFUser currentUser]]];
             [memberQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
                 if (queryError) {
                     NSLog(@"%@",[queryError userInfo].description);
@@ -104,7 +104,7 @@
                 }
                 // find next..
                 PFQuery *groupQuery = [PFArtistGroupProfile query];
-                [groupQuery whereKey:@"admins" containsAllObjectsInArray:@[[user objectId]]];
+                [groupQuery whereKey:@"admins" containsAllObjectsInArray:@[[PFUser currentUser]]];
                 [groupQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
                     if (queryError) {
                         NSLog(@"%@",[queryError userInfo].description);
@@ -117,23 +117,23 @@
                         
                         if ([obj isKindOfClass:[PFArtistProfile class]]) {
                             PFArtistProfile *object = obj;
-                            [object fetchEventDetailsWithBlock:^(id event, NSError *eventError) {
-                                if (eventError) {
-                                    NSLog(@"%@",[eventError userInfo].description);
+                            [object fetchEventDetailsWithBlock:^(id artist, NSError *error) {
+                                if (error) {
+                                    NSLog(@"%@",[error userInfo].description);
                                 }
-                                SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
-                                item.itemObject = event;
+                                SideMenuItem *item = [SideMenuItem fetchedArtistProfile:user update:update];
+                                item.itemObject = artist;
                                 item.section = 3;
                                 block(item);
                             }];
                         } else if ([obj isKindOfClass:[PFArtistGroupProfile class]]) {
                             PFArtistGroupProfile *object = obj;
-                            [object fetchEventDetailsWithBlock:^(id event, NSError *eventError) {
-                                if (eventError) {
-                                    NSLog(@"%@",[eventError userInfo].description);
+                            [object fetchEventDetailsWithBlock:^(id artist, NSError *error) {
+                                if (error) {
+                                    NSLog(@"%@",[error userInfo].description);
                                 }
-                                SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
-                                item.itemObject = event;
+                                SideMenuItem *item = [SideMenuItem fetchedArtistProfile:user update:update];
+                                item.itemObject = artist;
                                 item.section = 3;
                                 block(item);
                             }];

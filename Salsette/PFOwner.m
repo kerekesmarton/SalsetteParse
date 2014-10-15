@@ -38,7 +38,7 @@ static NSArray *pfLocalisedDescriptions;
 
 +(void)load {
     if (!fbEventGraphKeys) {
-        fbEventGraphKeys = @[@"name", @"id"];
+        fbEventGraphKeys = @[@"id",@"name"];
     }
     if (!fbProperties) {
         fbProperties = @[@"name"];

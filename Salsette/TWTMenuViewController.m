@@ -134,10 +134,10 @@
     NSArray *group = [self.dataSource objectAtIndex:indexPath.section];
     SideMenuItem  *item = [group objectAtIndex:indexPath.row];
     id viewController = [item.viewControllerClass new];
-    if ([viewController isKindOfClass:[EditEventTableViewController class]]) {
+    if ([viewController isKindOfClass:[PFObjectTableViewController class]]) {
         
-        EditEventTableViewController *edit = viewController;
-        edit.event = (PFEvent *)item.itemObject;
+        PFObjectTableViewController *edit = viewController;
+        edit.object = (MyPFObject *)item.itemObject;
     }
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     

@@ -91,12 +91,12 @@
                                   } else if (result) {
                                       
                                       PFEvent *event = [PFEvent eventWithGraphObject:result];
-                                      [PFEvent queryForID:event.identifier completion:^(PFEvent *obj, NSError *error) {
+                                      [PFEvent queryForID:event.identifier completion:^(PFEvent *fetchedEvent, NSError *error) {
                                           
                                           [weakSelf.HUD hide:YES];
                                           EditEventTableViewController *edit = [[EditEventTableViewController alloc] initWithNibName:NSStringFromClass([EditEventTableViewController class]) bundle:nil];
-                                          if (obj && [obj.ACL getWriteAccessForUser:[PFUser currentUser]]) {
-                                              edit.event = obj;
+                                          if (fetchedEvent && [fetchedEvent.ACL getWriteAccessForUser:[PFUser currentUser]]) {
+                                              edit.event = fetchedEvent;
                                           } else {
                                               event.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
                                               [event.ACL setPublicReadAccess:YES];

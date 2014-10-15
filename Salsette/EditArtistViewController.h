@@ -8,10 +8,10 @@
 
 #import "PFObjectTableViewController.h"
 
-
+@class PFArtistProfile;
 @class MyPFObject;
 @interface EditArtistViewController : PFObjectTableViewController
 
-@property (nonatomic, strong) MyPFObject *object;
+@property (nonatomic, strong) PFArtistProfile *artist;
 
 @end
