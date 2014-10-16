@@ -11,6 +11,7 @@
 #import "PFEvent.h"
 #import "PFArtistGroupProfile.h"
 #import "PFArtistProfile.h"
+#import "PFUser+Additions.h"
 
 @implementation SideMenuGroup
 
@@ -38,28 +39,27 @@
 
     //section 1
     
-    if (!user) {
-        return [NSArray array];
-    }
+    if ([user userAccountTypeIncludes:AccountTypeOrganiser]) {
     
-    PFQuery *query = [PFEvent query];
-    [query whereKey:@"pfUser" containedIn:@[[PFUser currentUser]]];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
-        if (queryError) {
-            NSLog(@"%@",[queryError userInfo].description);
-        }
-        [objects enumerateObjectsUsingBlock:^(PFEvent *event, NSUInteger idx, BOOL *stop) {
-            [event fetchEventDetailsWithBlock:^(id event, NSError *eventError) {
-                if (eventError) {
-                    NSLog(@"%@",[eventError userInfo].description);
-                }
-                SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
-                item.itemObject = event;
-                item.section = 1;
-                block(item);
+        PFQuery *query = [PFEvent query];
+        [query whereKey:@"pfUser" containedIn:@[[PFUser currentUser]]];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *queryError) {
+            if (queryError) {
+                NSLog(@"%@",[queryError userInfo].description);
+            }
+            [objects enumerateObjectsUsingBlock:^(PFEvent *event, NSUInteger idx, BOOL *stop) {
+                [event fetchEventDetailsWithBlock:^(id event, NSError *eventError) {
+                    if (eventError) {
+                        NSLog(@"%@",[eventError userInfo].description);
+                    }
+                    SideMenuItem *item = [SideMenuItem fetchedEventItem:user update:update];
+                    item.itemObject = event;
+                    item.section = 1;
+                    block(item);
+                }];
             }];
         }];
-    }];
+    }
     
     SideMenuItem *createItem = [SideMenuItem createEventItem:user update:update];
     
@@ -80,7 +80,7 @@
 
     //section 3
     
-    if (user) {
+    if ([user userAccountTypeIncludes:AccountTypeArtist]) {
         
         NSMutableArray *results = [NSMutableArray array];
         

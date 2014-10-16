@@ -8,13 +8,11 @@
 
 #import "AccountDetailsTableViewController.h"
 #import <Parse/Parse.h>
-
+#import "ParseIncludes.h"
 
 @interface AccountDetailsTableViewController ()
 
 @property (nonatomic, strong) NSMutableArray *rowDataArray;
-@property (nonatomic, strong) id selectedItem;
-
 
 @end
 
@@ -27,11 +25,9 @@
         // Custom initialization
         self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
         // Set default values for the table row data
-        self.rowDataArray = [@[@"Dancer", @"Artist", @"Organiser"] mutableCopy];
+        
+        self.rowDataArray = [[PFUser allAccountTypes] mutableCopy];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        if ([[PFUser currentUser] objectForKey:@"account_details"][@"type"]) {
-            self.selectedItem = [[PFUser currentUser] objectForKey:@"account_details"][@"type"];
-        }
     }
     return self;
 }
@@ -52,6 +48,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldReloadNotification object:[PFUser currentUser]]];
 }
 
 #pragma mark - Table view data source
@@ -79,27 +81,21 @@
     
     cell.textLabel.text = (NSString *)[self.rowDataArray objectAtIndex:indexPath.row];
     
-    if (self.selectedItem && (indexPath.row == [self.selectedItem intValue])) {
+    if ([[PFUser currentUser] userAccountTypeIncludes:[PFUser accountTypeForIndex:indexPath.row]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    self.selectedItem = @(indexPath.row);
+    AccountType type = [PFUser accountTypeForIndex:indexPath.row];
     
-    NSMutableDictionary *accountDetails = [NSMutableDictionary dictionaryWithDictionary:[[PFUser currentUser] objectForKey:@"account_details"]];
+    [[PFUser currentUser] toggleAccountType:type];
     
-    accountDetails[@"type"] = @(indexPath.row);
-    
-    [[PFUser currentUser] setObject:accountDetails forKey:@"account_details"];
-    [[PFUser currentUser] saveInBackground];
-    
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

@@ -86,6 +86,7 @@
 		3B9F695019B4916700230B03 /* PFOwner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F694F19B4916700230B03 /* PFOwner.m */; };
 		3B9F695319B492DB00230B03 /* MyPFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F695219B492DB00230B03 /* MyPFObject.m */; };
 		3B9F695719B49A3000230B03 /* ParseIncludes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F695619B49A3000230B03 /* ParseIncludes.m */; };
+		3BCEB98719EFFBCA00C11FF5 /* PFUser+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCEB98619EFFBCA00C11FF5 /* PFUser+Additions.m */; };
 		3BDAD7E119B710590086B47F /* UIViewController+ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAD7E019B710590086B47F /* UIViewController+ActivityIndicator.m */; };
 		3BDAD7E419B71E8C0086B47F /* PFCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAD7E319B71E8C0086B47F /* PFCover.m */; };
 		3BDAD7EB19B724C40086B47F /* EditCoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAD7E919B724C40086B47F /* EditCoverViewController.m */; };
@@ -244,6 +245,8 @@
 		3B9F695219B492DB00230B03 /* MyPFObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPFObject.m; sourceTree = "<group>"; };
 		3B9F695519B49A3000230B03 /* ParseIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseIncludes.h; sourceTree = "<group>"; };
 		3B9F695619B49A3000230B03 /* ParseIncludes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseIncludes.m; sourceTree = "<group>"; };
+		3BCEB98519EFFBCA00C11FF5 /* PFUser+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFUser+Additions.h"; sourceTree = "<group>"; };
+		3BCEB98619EFFBCA00C11FF5 /* PFUser+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFUser+Additions.m"; sourceTree = "<group>"; };
 		3BDAD7DF19B710590086B47F /* UIViewController+ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ActivityIndicator.h"; sourceTree = "<group>"; };
 		3BDAD7E019B710590086B47F /* UIViewController+ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ActivityIndicator.m"; sourceTree = "<group>"; };
 		3BDAD7E219B71E8C0086B47F /* PFCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCover.h; sourceTree = "<group>"; };
@@ -564,6 +567,8 @@
 				3B691739199CD339005629CE /* ParseManager.m */,
 				3B49AB5619B8924100155425 /* ImageDataManager.h */,
 				3B49AB5719B8924100155425 /* ImageDataManager.m */,
+				3BCEB98519EFFBCA00C11FF5 /* PFUser+Additions.h */,
+				3BCEB98619EFFBCA00C11FF5 /* PFUser+Additions.m */,
 				3B9F695919B49A5600230B03 /* Model */,
 			);
 			name = "Parse Logic and Data Models";
@@ -748,6 +753,7 @@
 				3B7E13C119B0C51C00B79325 /* NSNotificationCenter+Additions.m in Sources */,
 				3BDAD7F219B739F70086B47F /* MBProgressHUD.m in Sources */,
 				3B7E13C019B0C51C00B79325 /* NSMutableDictionary+Additions.m in Sources */,
+				3BCEB98719EFFBCA00C11FF5 /* PFUser+Additions.m in Sources */,
 				3B59B0F619AF394C00C04A97 /* SideMenuGroup.m in Sources */,
 				3B18CC9619BA01AF007AC8D4 /* CreateArtistViewController.m in Sources */,
 				3B7E13C619B0C51C00B79325 /* UIApplication+Additions.m in Sources */,

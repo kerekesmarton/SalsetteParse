@@ -57,10 +57,6 @@
     
     if ([PFUser currentUser]) {
         [self updateProfile];
-    } else {
-        [ParseManager requestFacebookUserdataAndUpdateProfileWithCompletion:^{
-            [self updateProfile];
-        }];
     }
 }
 
@@ -158,8 +154,9 @@
     
     if ([[PFUser currentUser] objectForKey:@"account_details"][@"type"]) {
         
-        NSNumber *type = [[PFUser currentUser] objectForKey:@"account_details"][@"type"];
-        [self.rowDataArray replaceObjectAtIndex:3 withObject:[@[@"Dancer", @"Artist", @"Organiser"] objectAtIndex:[type intValue]]];
+        AccountType type = [[PFUser currentUser] highestAccountType];
+        
+        [self.rowDataArray replaceObjectAtIndex:3 withObject:[PFUser userReadableAccountTypeForValue:type]];
     }
     
     [self.tableView reloadData];

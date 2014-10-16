@@ -16,6 +16,7 @@
 #import "PFDanceStyle.h"
 #import "PFArtistProfile.h"
 #import "PFArtistGroupProfile.h"
+#import "PFUser+Additions.h"
 
 
 extern NSString * const MenuShouldReloadNotification;

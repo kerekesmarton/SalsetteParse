@@ -88,19 +88,8 @@
 
 + (SideMenuItem *)createEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update {
     
-    if (!user) {
+    if (![user userAccountTypeIncludes:AccountTypeOrganiser]) {
         return nil;
-    }
-    
-    if ([[PFUser currentUser] objectForKey:@"account_details"][@"type"]) {
-        
-        NSNumber *type = [[PFUser currentUser] objectForKey:@"account_details"][@"type"];
-        if (!type) {
-            return nil;
-        }
-        if ([type intValue] != 2) {
-            return nil;
-        }
     }
     
     SideMenuItem *item = [[SideMenuItem alloc] init];
@@ -206,19 +195,8 @@
 
 + (SideMenuItem *)createArtistItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update {
     
-    if (!user) {
+    if (![user userAccountTypeIncludes:AccountTypeArtist]) {
         return nil;
-    }
-    
-    if ([[PFUser currentUser] objectForKey:@"account_details"][@"type"]) {
-        
-        NSNumber *type = [[PFUser currentUser] objectForKey:@"account_details"][@"type"];
-        if (!type) {
-            return nil;
-        }
-        if ([type intValue] != 1) {
-            return nil;
-        }
     }
     
     SideMenuItem *item = [[SideMenuItem alloc] init];
