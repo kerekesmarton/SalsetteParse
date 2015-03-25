@@ -14,6 +14,7 @@
 #import "PFVenue.h"
 #import "PFCover.h"
 #import "PFDanceStyle.h"
+#import "PFArtistList.h"
 
 static NSArray *fbEventGraphKeys;
 
@@ -46,8 +47,12 @@ static NSArray *pfLocalisedDescriptions;
             event.identifier = obj;
         } else if ([key isEqualToString:@"cover"]) {
             
-            event.coverPhoto = [PFCover objectWithDictionary:obj];
-            event.coverID = event.coverPhoto.identifier;
+            PFCover *cover  = [PFCover objectWithDictionary:obj];
+            if (!cover.identifier) {
+                cover.identifier = event.identifier;
+            }
+            event.coverPhoto = cover;
+            event.coverID = cover.identifier;
         }
         else if ([key isEqualToString:@"description"]) {
             event.longDesc = obj;
@@ -102,7 +107,7 @@ static NSArray *pfLocalisedDescriptions;
         }
     }
     
-    event.artists = [NSArray array];
+    event.artists = [PFArtistList objectWithArtists:[NSArray array] identifier:event.identifier];
     
     NSString *mainID = [NSString stringWithFormat:@"m_%@",event.identifier];
     event.mainStyle = [PFDanceStyle objectWithStyle:DanceStyleUndefined identifier:mainID];
@@ -151,110 +156,6 @@ static NSArray *pfLocalisedDescriptions;
 
 - (NSString *)shortDesc {
     return self.name;
-}
-
-+(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
-    
-    PFQuery *query = [self query];
-    [query whereKey:@"identifier" equalTo:identifier];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            
-            if (objects.count > 0) {
-                PFEvent *event = [objects firstObject];
-                [event fetchEventDetailsWithBlock:block];
-            }
-            else {
-                block(nil,nil);
-            }
-            
-        } else {
-            // Log details of the failure
-            NSLog(@"%s\n%@", __PRETTY_FUNCTION__, [error userInfo]);
-            block(nil,error);
-        }
-    }];
-}
-
-- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block {
-    self.owner = nil;
-    self.venue = nil;
-    didComplete = NO;
-    [PFVenue queryForID:self.venueID completion:^(PFVenue *venue, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.venue = venue;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-    [PFOwner queryForID:self.ownerID completion:^(PFOwner *owner, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.owner = owner;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-    [PFCover queryForID:self.coverID completion:^(PFCover *cover, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.coverPhoto = cover;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-    [PFDanceStyle queryForID:self.mainStyleID completion:^(PFDanceStyle *style, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.mainStyle = style;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-    [PFDanceStyle queryForID:self.secondStyleID completion:^(PFDanceStyle *style, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.secondaryStyle = style;
-            [self tryCompleteBlock:block];
-        }
-    }];
-
-}
-
-- (void)tryCompleteBlock:(void (^)(id,NSError *))block {
-    
-    BOOL isReady = YES;
-    
-    if (![self.owner isDataAvailable]) {
-        isReady = NO;
-    }
-    if (![self.venue isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (![self.coverPhoto isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (![self.mainStyle isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (![self.secondaryStyle isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (!didComplete && isReady) {
-        didComplete = YES;
-        block (self,nil);
-    }
 }
 
 @end

@@ -10,6 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "TWTSideMenuViewController.h"
 #import "UIViewController+ActivityIndicator.h"
+#import "UIViewController+Navigation.h"
 #import "EditArtistViewController.h"
 #import "PFArtistProfile.h"
 #import "PFArtistGroupProfile.h"
@@ -27,13 +28,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
-    self.navigationItem.leftBarButtonItem = openItem;
+    [self refreshBackButton];
 }
 
-- (void)openButtonPressed
-{
-    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+#warning debug only!
+    
+    self.textField.text = @"https://www.facebook.com/DJMartin.AIRE.DanceCompany";
 }
 
 - (IBAction)goButtonPressed:(id)sender {

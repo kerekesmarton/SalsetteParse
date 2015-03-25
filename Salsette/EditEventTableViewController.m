@@ -11,9 +11,11 @@
 #import "EditEventTableViewController.h"
 #import "EditCoverViewController.h"
 #import "EditDanceStyleViewController.h"
+#import "ArtistsListTableViewController.h"
 
 #import "UIViewController+ActivityIndicator.h"
-
+#import "UIViewController+Navigation.h"
+#import "UIViewController+CoverImage.h"
 #import "DefaultTableViewCell.h"
 
 #import "ImageDataManager.h"
@@ -49,24 +51,12 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self refreshBackButton];
     
-    if (!self.event.objectId) {
-        UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
-        self.navigationItem.rightBarButtonItem = start;
-    } else {
-        UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
-        self.navigationItem.rightBarButtonItem = start;        
-    }
+    [self refreshSaveButtonTarget:self sel:@selector(startButtonPressed)];
     
     self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
     
-    if (self.presentingViewController) {
-        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
-        self.navigationItem.leftBarButtonItem = openItem;
-    } else {
-        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
-        self.navigationItem.leftBarButtonItem = openItem;
-    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -131,41 +121,39 @@
     // Navigation logic may go here, for example:
     // Create the next view controller.
     
-    id obj = [self.event objectForIndex:indexPath];
-    
-    if ([obj isKindOfClass:[PFCover class]] && [self.event objectId]) {
-        EditCoverViewController *detailViewController = [[EditCoverViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
-        detailViewController.cover = obj;
-        [self.navigationController pushViewController:detailViewController animated:YES];
+    [(MyPFObject *)self.event fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        id loadedObject = [(MyPFObject *)object objectForIndex:indexPath];
         
-    } else if ([obj isKindOfClass:[PFDanceStyle class]]) {
-        EditDanceStyleViewController *detailViewController = [[EditDanceStyleViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
-        detailViewController.style = obj;
-        [self.navigationController pushViewController:detailViewController animated:YES];
-        
-    } else if ([obj isKindOfClass:[MyPFObject class]]) {
-        PFObjectTableViewController *detailViewController = [[PFObjectTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
-        detailViewController.object = obj;
-        [self.navigationController pushViewController:detailViewController animated:YES];
-        
-    }
-}
-
-- (void)cancelButtonPressed
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
+        if ([loadedObject isKindOfClass:[PFCover class]] && [self.event identifier]) {
+            EditCoverViewController *detailViewController = [[EditCoverViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+            detailViewController.cover = loadedObject;
+            [self.navigationController pushViewController:detailViewController animated:YES];
+            
+        } else if ([loadedObject isKindOfClass:[PFDanceStyle class]]) {
+            EditDanceStyleViewController *detailViewController = [[EditDanceStyleViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+            detailViewController.style = loadedObject;
+            [self.navigationController pushViewController:detailViewController animated:YES];
+            
+        } else if ([loadedObject isKindOfClass:[PFArtistList class]]) {
+            ArtistsListTableViewController *artistList = [[ArtistsListTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+            artistList.object = loadedObject;
+            [self.navigationController pushViewController:artistList animated:YES];
+        } else if ([loadedObject isKindOfClass:[MyPFObject class]]) {
+            PFObjectTableViewController *detailViewController = [[PFObjectTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
+            detailViewController.object = loadedObject;
+            [self.navigationController pushViewController:detailViewController animated:YES];
+        }
     }];
 }
 
-- (void)openButtonPressed
-{
-    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self scaleImageView:scrollView];
 }
 
 - (void)startButtonPressed {
     
-    self.event.pfUser = [PFUser currentUser];
+    [[PFUser currentUser] addEvent:self.event.identifier];
+    
     self.HUD.mode = MBProgressHUDModeIndeterminate;
     [self.HUD show:YES];
     
@@ -178,8 +166,8 @@
         }
         if (succeeded) {
             
-            UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:weakSelf action:@selector(startButtonPressed)];
-            weakSelf.navigationItem.rightBarButtonItem = start;
+            [self refreshBackButton];
+            [self refreshSaveButtonTarget:weakSelf sel:@selector(startButtonPressed)];
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldAddObject object:weakSelf.event]];
         }
     }];
@@ -187,13 +175,14 @@
 }
 
 - (void)loadImage {
-    
-    PFCover *cover = self.event.coverPhoto;
     __weak EditEventTableViewController *weakSelf = self;
-    [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
-        
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
-        weakSelf.tableView.tableHeaderView = imgView;
+    [PFCover queryForID:self.event.coverID completion:^(PFCover *cover, NSError *error) {
+        [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+            
+            self.imageView = [[UIImageView alloc] initWithImage:responseObject];
+            self.imageView.contentMode = UIViewContentModeScaleToFill;
+            weakSelf.tableView.tableHeaderView = self.imageView;
+        }];
     }];
 }
 

@@ -29,6 +29,4 @@
 @property (nonatomic, strong) NSMutableArray    *memberIDs;
 @property (nonatomic, strong) NSMutableArray    *adminIDs;
 
-- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
-
 @end

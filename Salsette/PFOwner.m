@@ -64,26 +64,4 @@ static NSArray *pfLocalisedDescriptions;
     return @[fbLocalisedDescriptions];
 }
 
-+(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
-    
-    PFQuery *query = [self query];
-    [query whereKey:@"identifier" equalTo:identifier];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            
-            if (objects.count > 0) {
-                
-                PFOwner *owner = [objects firstObject];
-                block(owner,nil);
-            } else {
-                block(nil,nil);
-            }
-            
-        } else {
-            block(nil,error);
-        }
-    }];
-}
-
 @end

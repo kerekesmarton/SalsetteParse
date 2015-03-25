@@ -14,6 +14,7 @@
 #import "ImageDataManager.h"
 
 #import "UIViewController+ActivityIndicator.h"
+#import "UIViewController+CoverImage.h"
 
 @interface EditCoverViewController () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -62,6 +63,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self scaleImageView:scrollView];
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self selectImage];
@@ -91,21 +96,21 @@
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
         
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        CGFloat newHeight = (CGFloat)image.size.height * (CGFloat)self.view.frameWidth / (CGFloat)image.size.height;
-        CGSize  newSize   = CGSizeMake(self.view.frameWidth, newHeight);
-        // Resize image
-        UIGraphicsBeginImageContext(newSize);
-        [image drawInRect: CGRectMake(0, 0, newSize.width, newSize.height)];
-        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        // Upload image
-        NSData *imageData = UIImageJPEGRepresentation(smallImage, 100);
-        [self uploadImage:imageData];
-        
         [picker dismissViewControllerAnimated:YES completion:^{
+            UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+            self.cover.size = NSStringFromCGSize(image.size);
+            [self.cover saveInBackground];
+//            CGFloat newHeight = (CGFloat)image.size.height * (CGFloat)self.view.frameWidth / (CGFloat)image.size.height;
+//            CGSize  newSize   = CGSizeMake(self.view.frameWidth, newHeight);
+//            // Resize image
+//            UIGraphicsBeginImageContext(newSize);
+//            [image drawInRect: CGRectMake(0, 0, newSize.width, newSize.height)];
+//            UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+//            UIGraphicsEndImageContext();
+            
+            // Upload image
+            NSData *imageData = UIImageJPEGRepresentation(image, 1);
+            [self uploadImage:imageData];
         }];
     }
 }
@@ -137,17 +142,21 @@
     __weak EditCoverViewController *weakSelf = self;
     [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
         
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
-        weakSelf.tableView.tableHeaderView = imgView;
+        self.imageView = [[UIImageView alloc] initWithImage:responseObject];
+        self.initialSize = CGSizeFromString(self.cover.size);
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        weakSelf.tableView.tableHeaderView = self.imageView;
         
         [self.HUD hide:YES];
     }];
 }
 
 - (void)uploadImage:(NSData *)imageData {
+    self.HUD.mode = MBProgressHUDModeDeterminate;
     [self.HUD show:YES];
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
     PFCover *cover = self.cover;
+    
     //HUD creation here (see example for code)
     
     // Save PFFile
@@ -157,7 +166,6 @@
             [self.HUD hide:YES];
             
             cover.url = [imageFile url];
-            
             [cover saveInBackground];
             
             [[ImageDataManager sharedInstance] setObject:imageData forKey:cover.identifier];

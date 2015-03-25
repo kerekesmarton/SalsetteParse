@@ -109,26 +109,4 @@ static NSArray *pfLocalisedDescriptions;
     return @[fbLocalisedDescriptions,pfLocalisedDescriptions];
 }
 
-+(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
-    
-    PFQuery *query = [self query];
-    [query whereKey:@"identifier" equalTo:identifier];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            if (objects.count > 0) {
-                
-                PFVenue *venue = [objects firstObject];
-                block(venue,nil);
-            } else {
-                block(nil,nil);
-            }
-            
-        } else {
-            block(nil,error);
-        }
-    }];
-}
-
-
-
 @end

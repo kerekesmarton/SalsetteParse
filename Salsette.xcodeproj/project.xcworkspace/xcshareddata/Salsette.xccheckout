@@ -10,33 +10,33 @@
 	<string>Salsette</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>84A46993-1C53-42F7-9FCE-4ACC384EA96C</key>
-		<string>https://github.com/AFNetworking/AFNetworking.git</string>
-		<key>DDFF1CF8-6727-41B1-9296-BAE285FE9A09</key>
+		<key>C915BB64EB0F6A1302312AF5B19DED69C9365CDB</key>
 		<string>https://github.com/kerekesmarton/Salsette.git</string>
+		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
+		<string>https://github.com/AFNetworking/AFNetworking.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Salsette.xcodeproj/project.xcworkspace</string>
+	<string>Salsette.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>84A46993-1C53-42F7-9FCE-4ACC384EA96C</key>
-		<string>../../../AFNetworking</string>
-		<key>DDFF1CF8-6727-41B1-9296-BAE285FE9A09</key>
+		<key>C915BB64EB0F6A1302312AF5B19DED69C9365CDB</key>
 		<string>../..</string>
+		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
+		<string>../../../AFNetworking</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/kerekesmarton/Salsette.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>DDFF1CF8-6727-41B1-9296-BAE285FE9A09</string>
+	<string>C915BB64EB0F6A1302312AF5B19DED69C9365CDB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>84A46993-1C53-42F7-9FCE-4ACC384EA96C</string>
+			<string>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>AFNetworking</string>
 		</dict>
@@ -44,7 +44,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>DDFF1CF8-6727-41B1-9296-BAE285FE9A09</string>
+			<string>C915BB64EB0F6A1302312AF5B19DED69C9365CDB</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Salsette</string>
 		</dict>

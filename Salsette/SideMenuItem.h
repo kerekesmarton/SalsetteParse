@@ -35,10 +35,11 @@ typedef enum ItemStatus {
 
 + (SideMenuItem *)createEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 + (SideMenuItem *)fetchedEventItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
-+ (SideMenuItem *)eventItemWithEvent:(MyPFObject *)event;
 
 + (SideMenuItem *)userItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 + (SideMenuItem *)fetchedArtistProfile:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
 + (SideMenuItem *)createArtistItem:(PFUser *)user update:(void (^)(SideMenuItem *item)) update;
+
++ (SideMenuItem *)itemWithObject:(MyPFObject *)event;
 
 @end

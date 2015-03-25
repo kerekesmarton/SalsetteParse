@@ -102,7 +102,7 @@ int const kFMTimeSecondsInADay      = 86400;
 }
 
 - (int)weeksToPresent {
-    return [[self dateComponentsToPresent:NSWeekCalendarUnit] week];
+    return [[self dateComponentsToPresent:NSWeekCalendarUnit] weekOfMonth];
 }
 
 - (int)monthsToPresent {

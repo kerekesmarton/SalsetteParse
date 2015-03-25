@@ -8,6 +8,10 @@
 
 #import "PFUser+Additions.h"
 
+#import "PFEvent.h"
+#import "PFArtistProfile.h"
+#import "PFArtistGroupProfile.h"
+
 @implementation PFUser (Additions)
 
 -(int)accountType {
@@ -28,6 +32,50 @@
     accountDetails[@"type"] = @(accountType);
     
     [[PFUser currentUser] setObject:accountDetails forKey:@"account_details"];
+    [[PFUser currentUser] saveInBackground];
+}
+
+-(NSArray *)events {
+ 
+    return [NSArray arrayWithArray:[[PFUser currentUser] objectForKey:NSStringFromClass([PFEvent class])]];
+}
+
+-(void)setEvents:(NSArray *)events {
+    
+    [[PFUser currentUser] setObject:events forKey:NSStringFromClass([PFEvent class])];
+    [[PFUser currentUser] saveInBackground];
+}
+
+-(void)addEvent:(NSString *)event {
+    [[PFUser currentUser] addUniqueObject:event forKey:NSStringFromClass([PFEvent class])];
+    [[PFUser currentUser] saveInBackground];
+}
+
+-(NSArray *)artistProfiles {
+    return [NSArray arrayWithArray:[[PFUser currentUser] objectForKey:NSStringFromClass([PFArtistProfile class])]];
+}
+
+-(void)setArtistProfiles:(NSArray *)artistProfiles {
+    [[PFUser currentUser] setObject:artistProfiles forKey:NSStringFromClass([PFArtistProfile class])];
+    [[PFUser currentUser] saveInBackground];
+}
+
+-(void)addArtistProfile:(NSString *)artistProfile {
+    [[PFUser currentUser] addUniqueObject:artistProfile forKey:NSStringFromClass([PFArtistProfile class])];
+    [[PFUser currentUser] saveInBackground];
+}
+
+-(NSArray *)groupProfiles{
+    return [NSArray arrayWithArray:[[PFUser currentUser] objectForKey:NSStringFromClass([PFArtistGroupProfile class])]];
+}
+
+-(void)setGroupProfiles:(NSArray *)groupProfiles {
+    [[PFUser currentUser] setObject:groupProfiles forKey:NSStringFromClass([PFArtistGroupProfile class])];
+    [[PFUser currentUser] saveInBackground];
+}
+
+-(void)addGroupProfile:(NSString *)groupProfile {
+    [[PFUser currentUser] addUniqueObject:groupProfile forKey:NSStringFromClass([PFArtistGroupProfile class])];
     [[PFUser currentUser] saveInBackground];
 }
 
@@ -58,7 +106,7 @@
         //remove option
         if ((accountType & AccountTypeDancer) == 0) {
             userAccountType = userAccountType ^ accountType;
-        }        
+        }
     } else {
         //add option
         userAccountType = userAccountType | accountType;
@@ -99,7 +147,9 @@
         return AccountTypeArtist;
     }
     return AccountTypeOrganiser;
-    
 }
+
+
+
 
 @end

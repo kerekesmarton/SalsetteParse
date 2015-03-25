@@ -16,5 +16,5 @@
 @property (nonatomic, strong) MyPFObject *object;
 
 - (void)configureCell:(DefaultTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-
+- (void)refreshSaveButtonTarget:(id)target sel:(SEL)selector;
 @end

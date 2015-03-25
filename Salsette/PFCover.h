@@ -8,9 +8,12 @@
 
 #import "MyPFObject.h"
 
+@class PFFile;
+
 @interface PFCover : MyPFObject
 
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *size;
 
 +(instancetype)objectWithURL:(NSString *)url identifier:(NSString *)identifier;
 

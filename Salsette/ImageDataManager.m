@@ -77,11 +77,13 @@ static int kPlaceHolderImageWidth = 60;
         [ParseManager fetchImageWithURL:url completion:^(UIImage *responseObject) {
             if (responseObject) {
                 NSData *imageData = UIImageJPEGRepresentation(responseObject, 100);
-                [[ImageDataManager sharedInstance] setObject:imageData forKey:[NSString stringWithFormat:@"%@",identifier]];
+                [self setObject:imageData forKey:[NSString stringWithFormat:@"%@",identifier]];
+                [self save];
                 success(responseObject);
             } else {
                 success(nil);
             }
+           
         }];
     
     }
@@ -103,7 +105,8 @@ static int kPlaceHolderImageWidth = 60;
                 
                 if (responseObject) {
                     NSData *imageData = UIImageJPEGRepresentation(responseObject, 100);
-                    [[ImageDataManager sharedInstance] setObject:imageData forKey:[NSString stringWithFormat:@"%@",@"userImage"]];
+                    [self setObject:imageData forKey:[NSString stringWithFormat:@"%@",@"userImage"]];
+                    [self save];
                     success(responseObject);
                 } else {
                     success(nil);

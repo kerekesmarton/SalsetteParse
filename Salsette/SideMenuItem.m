@@ -111,33 +111,23 @@
     __weak SideMenuItem *weakItem = item;
     [item setItemEvent:^(UIImageView *imageView) {
         SideMenuItem *strongItem = weakItem;
-
         PFEvent *event = (PFEvent *)strongItem.itemObject;
-        PFCover *cover = event.coverPhoto;
-        
-        [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
-            
-            CGSize size = imageView.image.size;
-            UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
-            imageView.image = scaledImaged;
-            imageView.layer.cornerRadius = 8.0f;
-            imageView.layer.masksToBounds = YES;
+        [PFCover queryForID:event.coverID completion:^(PFCover *cover, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error.userInfo.description);
+            } else if (cover) {
+                [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+                    
+                    CGSize size = imageView.image.size;
+                    UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
+                    imageView.image = scaledImaged;
+                    imageView.layer.cornerRadius = 8.0f;
+                    imageView.layer.masksToBounds = YES;
+                }];
+            }
         }];
 
     }];
-    
-    return item;
-}
-
-+ (SideMenuItem *)eventItemWithEvent:(MyPFObject *)event {
-    
-    SideMenuItem *item = [[SideMenuItem alloc] init];
-    item.itemTitle = @"Event";
-    item.itemImage = [UIImage imageNamed:@"database"];
-    item.status = ItemStatusBasic;
-    item.viewControllerClass = [EditEventTableViewController class];
-    item.itemObject = event;
-    item.section = 1;
     
     return item;
 }
@@ -175,19 +165,21 @@
     __weak SideMenuItem *weakItem = item;
     [item setItemEvent:^(UIImageView *imageView) {
         SideMenuItem *strongItem = weakItem;
-        
-        PFEvent *event = (PFEvent *)strongItem.itemObject;
-        PFCover *cover = event.coverPhoto;
-        
-        [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
-            
-            CGSize size = imageView.image.size;
-            UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
-            imageView.image = scaledImaged;
-            imageView.layer.cornerRadius = 8.0f;
-            imageView.layer.masksToBounds = YES;
+        PFArtistProfile *event = (PFArtistProfile *)strongItem.itemObject;
+        [PFCover queryForID:event.coverPhotoID completion:^(PFCover *cover, NSError *error) {
+            if (error) {
+                NSLog(@"%@",error.userInfo.description);
+            } else if (cover) {
+                [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+                    
+                    CGSize size = imageView.image.size;
+                    UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
+                    imageView.image = scaledImaged;
+                    imageView.layer.cornerRadius = 8.0f;
+                    imageView.layer.masksToBounds = YES;
+                }];
+            }            
         }];
-        
     }];
     
     return item;
@@ -204,6 +196,57 @@
     item.itemImage = [UIImage imageNamed:@"user_male-128"];
     item.status = ItemStatusBasic;
     item.viewControllerClass = [CreateArtistViewController class];
+    
+    return item;
+}
+
++ (SideMenuItem *)itemWithObject:(MyPFObject *)object {
+    
+    SideMenuItem *item = [[SideMenuItem alloc] init];
+    item.itemTitle = [object shortDesc];
+    item.itemImage = [UIImage imageNamed:@"database"];
+    item.status = ItemStatusBasic;
+    item.viewControllerClass = [PFObjectTableViewController class];
+    item.itemObject = object;
+    
+    if ([object isKindOfClass:[PFEvent class]]) {
+        item.viewControllerClass = [EditEventTableViewController class];
+        item.section = 1;
+        [item setItemEvent:^(UIImageView *imageView) {
+            
+            PFEvent *event = (PFEvent *)object;
+            PFCover *cover = event.coverPhoto;
+            
+            [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+                
+                CGSize size = imageView.image.size;
+                UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
+                imageView.image = scaledImaged;
+                imageView.layer.cornerRadius = 8.0f;
+                imageView.layer.masksToBounds = YES;
+            }];
+            
+        }];
+    } else
+    if ([object isKindOfClass:[PFArtistProfile class]]) {
+        item.viewControllerClass = [EditArtistViewController class];
+        item.section = 3;
+        [item setItemEvent:^(UIImageView *imageView) {
+            
+            PFArtistProfile *artist = (PFArtistProfile *)object;
+            PFCover *cover = artist.coverPhoto;
+            
+            [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+                
+                CGSize size = imageView.image.size;
+                UIImage *scaledImaged = [UIImage imageWithImage:responseObject scaledToSize:size];
+                imageView.image = scaledImaged;
+                imageView.layer.cornerRadius = 8.0f;
+                imageView.layer.masksToBounds = YES;
+            }];
+            
+        }];
+    }
     
     return item;
 }

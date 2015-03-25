@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) PFUser    *pfUser;        // relationship to fetch for
 
-- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
++(PFQuery *)primaryQueryWithDanceStyle:(PFDanceStyle *)style name:(NSString *)name;
++(PFQuery *)secondaryQueryWithDanceStyle:(PFDanceStyle *)searchStyle name:(NSString *)name;
++ (void)searchWithQuery:(PFQuery *)query partial:(void (^)(id, NSError *, NSInteger))block completion:(void (^)(id, NSError *))completion;
 
 @end

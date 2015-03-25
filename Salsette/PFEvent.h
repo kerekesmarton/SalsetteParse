@@ -9,7 +9,7 @@
 #import "MyPFObject.h"
 
 @class FBGraphObject;
-@class PFOwner,PFVenue,PFCover,PFDanceStyle;
+@class PFOwner,PFVenue,PFCover,PFDanceStyle,PFArtistList;
 
 @interface PFEvent : MyPFObject
 
@@ -35,7 +35,7 @@
 
 
 //parse properties
-@property (nonatomic, strong) NSArray   *artists;       //artists invited
+@property (nonatomic, strong) PFArtistList  *artists;       //artists invited
 @property (nonatomic, strong) PFDanceStyle  *mainStyle;     //main dance style
 @property (nonatomic, strong) PFDanceStyle  *secondaryStyle;//secondary dance style
 
@@ -47,7 +47,5 @@
 @property (nonatomic, strong) NSString  *coverID;
 @property (nonatomic, strong) NSString  *mainStyleID;
 @property (nonatomic, strong) NSString  *secondStyleID;
-
-- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block;
 
 @end

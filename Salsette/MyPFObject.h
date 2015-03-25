@@ -10,11 +10,12 @@
 
 @interface MyPFObject : PFObject <PFSubclassing>
 
-@property (nonatomic, strong) NSString  *identifier;       //id
+@property (nonatomic, strong) NSString *identifier;
 
 + (instancetype)objectWithDictionary:(NSDictionary *)dictionary;
 - (NSString *)shortDesc;
-+ (void)queryForID:(NSString *)id completion:(void (^)(id,NSError *))block;
++ (void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block;
++ (void)queryForPFid:(NSString *)identifier completion:(void (^)(id,NSError *))block;
 
 - (id)objectForIndex:(NSIndexPath *)indexPath;
 - (NSString *)keyForIndex:(NSIndexPath *)indexPath;

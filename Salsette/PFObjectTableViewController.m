@@ -8,8 +8,8 @@
 
 #import "PFObjectTableViewController.h"
 #import "DefaultTableViewCell.h"
-
 #import "MyPFObject.h"
+#import "UIViewController+Navigation.h"
 
 @interface PFObjectTableViewController ()
 
@@ -119,26 +119,36 @@
     if (!obj) {
         return;
     }
+    
     if ([obj isKindOfClass:[NSString class]]) {
         cell.detailLabel.text = obj;
-    } else
-    if ([obj isKindOfClass:[NSNumber class]]) {
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
         cell.detailLabel.text = [obj stringValue];
-    } else
-    if ([obj isKindOfClass:[PFGeoPoint class]]) {
+    } else if ([obj isKindOfClass:[PFGeoPoint class]]) {
         
         PFGeoPoint *gp = obj;
         cell.detailLabel.text = [NSString stringWithFormat:@"%2.4f, %2.4f",gp.latitude,gp.longitude];
-    } else
-    if ([obj isKindOfClass:[MyPFObject class]]) {
-        cell.detailLabel.text = [obj shortDesc];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else
-    if ([obj isKindOfClass:[NSDate class]]) {
+    } else if ([obj isKindOfClass:[NSDate class]]) {
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterShortStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         cell.detailLabel.text = [formatter stringFromDate:obj];
+    } else if ([obj isKindOfClass:[MyPFObject class]]) {
+                
+        [(MyPFObject *)obj fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            cell.detailLabel.text = [obj shortDesc];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }];
+    }
+}
+
+- (void)refreshSaveButtonTarget:(id)target sel:(SEL)selector {
+    if (!self.object.objectId) {
+        UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStylePlain target:target action:selector];
+        self.navigationItem.rightBarButtonItem = start;
+    } else {
+        UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:target action:selector];
+        self.navigationItem.rightBarButtonItem = start;
     }
 }
 

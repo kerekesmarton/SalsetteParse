@@ -76,7 +76,7 @@
 
 - (void)addItemToMenuWithNotification:(NSNotification *)notification {
     
-    SideMenuItem *item = [SideMenuItem eventItemWithEvent:notification.object];
+    SideMenuItem *item = [SideMenuItem itemWithObject:notification.object];
     [self.menuViewController addItem:item atSection:item.section];
 }
 

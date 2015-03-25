@@ -12,6 +12,8 @@
 #import "EditDanceStyleViewController.h"
 
 #import "UIViewController+ActivityIndicator.h"
+#import "UIViewController+Navigation.h"
+#import "UIViewController+CoverImage.h"
 #import "DefaultTableViewCell.h"
 #import "ImageDataManager.h"
 #import "ParseIncludes.h"
@@ -45,24 +47,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    if (!self.object.objectId) {
-        UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
-        self.navigationItem.rightBarButtonItem = start;
-    } else {
-        UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(startButtonPressed)];
-        self.navigationItem.rightBarButtonItem = start;
-    }
+    [self refreshBackButton];
+    [self refreshSaveButtonTarget:self sel:@selector(startButtonPressed)];
     
     self.tableView.backgroundColor = [UIColor colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
-    
-    if (self.presentingViewController) {
-        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonPressed)];
-        self.navigationItem.leftBarButtonItem = openItem;
-    } else {
-        UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
-        self.navigationItem.leftBarButtonItem = openItem;
-    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -88,7 +76,7 @@
     
     id obj = [self.artist objectForIndex:indexPath];
     
-    if ([obj isKindOfClass:[PFCover class]] && [self.artist objectId]) {
+    if ([obj isKindOfClass:[PFCover class]] && [self.artist identifier]) {
         EditCoverViewController *detailViewController = [[EditCoverViewController alloc] initWithNibName: NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
         detailViewController.cover = obj;
         [self.navigationController pushViewController:detailViewController animated:YES];
@@ -105,21 +93,14 @@
     }
 }
 
-- (void)cancelButtonPressed
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
-- (void)openButtonPressed
-{
-    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self scaleImageView:scrollView];
 }
 
 - (void)startButtonPressed {
     
-    self.artist.pfUser = [PFUser currentUser];
+    [[PFUser currentUser] addArtistProfile:self.artist.identifier];
+    
     self.HUD.mode = MBProgressHUDModeIndeterminate;
     [self.HUD show:YES];
     
@@ -131,23 +112,22 @@
             NSLog(@"%@",[error userInfo]);
         }
         if (succeeded) {
-            
-            UIBarButtonItem *start = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:weakSelf action:@selector(startButtonPressed)];
-            weakSelf.navigationItem.rightBarButtonItem = start;
+            [self refreshBackButton];
+            [self refreshSaveButtonTarget:self sel:@selector(startButtonPressed)];
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:MenuShouldAddObject object:weakSelf.artist]];
         }
     }];
-    
 }
 
 - (void)loadImage {
-    
-    PFCover *cover = self.artist.coverPhoto;
     __weak EditArtistViewController *weakSelf = self;
-    [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+    [PFCover queryForID:self.artist.coverPhotoID completion:^(PFCover *cover, NSError *error) {
         
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:responseObject];
-        weakSelf.tableView.tableHeaderView = imgView;
+        [[ImageDataManager sharedInstance] imageForIdentifier:cover.identifier url:cover.url completion:^(UIImage *responseObject) {
+            self.imageView = [[UIImageView alloc] initWithImage:responseObject];
+            self.imageView.contentMode = UIViewContentModeScaleToFill;
+            weakSelf.tableView.tableHeaderView = self.imageView;
+        }];
     }];
 }
 

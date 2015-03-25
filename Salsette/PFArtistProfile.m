@@ -111,83 +111,54 @@ static NSArray *pfLocalisedDescriptions;
     return @[fbLocalisedDescriptions,pfLocalisedDescriptions];
 }
 
-+ (void)queryForID:(NSString *)identifier completion:(void (^)(id, NSError *))block {
++(PFQuery *)primaryQueryWithDanceStyle:(PFDanceStyle *)style name:(NSString *)name {
     
-    PFQuery *query = [self query];
-    [query whereKey:@"identifier" equalTo:identifier];
+    PFQuery *danceStyleQuery = [PFDanceStyle query];
+    [danceStyleQuery whereKey:@"danceStyle" equalTo:@(style.danceStyle)];
+    
+    PFQuery *primaryQuery = [self query];
+    [primaryQuery whereKey:@"primaryStyle" matchesQuery:danceStyleQuery];
+    [primaryQuery whereKey:@"name" containsString:name];
+    
+    return primaryQuery;
+}
+
++(PFQuery *)secondaryQueryWithDanceStyle:(PFDanceStyle *)searchStyle name:(NSString *)name  {
+    
+    PFQuery *danceStyleQuery = [PFDanceStyle query];
+    [danceStyleQuery whereKey:@"danceStyle" equalTo:@(searchStyle.danceStyle)];
+    
+    PFQuery *secondaryQuery = [self query];
+    [secondaryQuery whereKey:@"secondaryStyle" matchesQuery:danceStyleQuery];
+    [secondaryQuery whereKey:@"name" containsString:name];
+    
+    return secondaryQuery;
+}
+
++ (void)searchWithQuery:(PFQuery *)query partial:(void (^)(id, NSError *, NSInteger))block completion:(void (^)(id, NSError *))completion {
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
             
             if (objects.count > 0) {
                 
-                PFArtistProfile *object = [objects firstObject];
-                [object fetchEventDetailsWithBlock:^(id object, NSError *error) {
-                    block(object,nil);
-                }];
+                for (PFArtistProfile *object in objects) {
+                    PFQuery *query = [PFArtistProfile query];
+                    [query whereKey:@"identifier" equalTo:object.identifier];
+                    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        block(object,nil,[objects indexOfObject:object]);
+                    }];
+                }
+                completion(objects,nil);
                 
             } else {
-                block(nil,nil);
+                completion(nil,nil);
             }
             
         } else {
-            block(nil,error);
+            completion(nil,error);
         }
     }];
 }
-
-- (void)fetchEventDetailsWithBlock:(void (^)(id,NSError *))block {
-    
-    didComplete = NO;
-    [PFCover queryForID:self.coverPhotoID completion:^(PFCover *object, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.coverPhoto = object;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-    [PFDanceStyle queryForID:self.primaryStyleID completion:^(PFDanceStyle *style, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.primaryStyle = style;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-    [PFDanceStyle queryForID:self.secondaryStyleID completion:^(PFDanceStyle *style, NSError *error) {
-        if (error) {
-            NSLog(@"%s\n%@",__PRETTY_FUNCTION__,[error userInfo]);
-        } else {
-            self.secondaryStyle = style;
-            [self tryCompleteBlock:block];
-        }
-    }];
-    
-}
-
-- (void)tryCompleteBlock:(void (^)(id,NSError *))block {
-    
-    BOOL isReady = YES;
-    
-    if (![self.coverPhoto isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (![self.primaryStyle isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (![self.secondaryStyle isDataAvailable]) {
-        isReady = NO;
-    }
-    
-    if (!didComplete && isReady) {
-        didComplete = YES;
-        block (self,nil);
-    }
-}
-
 @end

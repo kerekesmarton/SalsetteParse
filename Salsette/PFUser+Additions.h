@@ -8,7 +8,6 @@
 
 #import <Parse/Parse.h>
 
-
 typedef enum AccountType {
     
     AccountTypeDancer       = 1,
@@ -20,11 +19,20 @@ typedef enum AccountType {
 @interface PFUser (Additions)
 
 @property (nonatomic, readwrite) int accountType;
-
-
 - (AccountType) highestAccountType;
 - (BOOL) userAccountTypeIncludes:(AccountType)accountType;
 - (void) toggleAccountType:(AccountType)accountType;
+
+@property (nonatomic, readwrite) NSArray *events;
+-(void)addEvent:(NSString *)event;
+
+@property (nonatomic, readwrite) NSArray *artistProfiles;
+-(void)addArtistProfile:(NSString *)artistProfile;
+
+@property (nonatomic, readwrite) NSArray *groupProfiles;
+-(void)addGroupProfile:(NSString *)groupProfile;
+
+
 
 + (NSString *) userReadableAccountTypeForValue:(AccountType)accountType;
 + (NSArray *) allAccountTypes;

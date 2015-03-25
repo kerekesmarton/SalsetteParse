@@ -12,6 +12,7 @@
 #import "EditEventTableViewController.h"
 #import "PFEvent.h"
 #import "UIViewController+ActivityIndicator.h"
+#import "UIViewController+Navigation.h"
 
 @interface CreateEventViewController ()
 
@@ -21,26 +22,16 @@
 
 @implementation CreateEventViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    UIBarButtonItem *openItem = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openButtonPressed)];
-    self.navigationItem.leftBarButtonItem = openItem;
+    [self refreshBackButton];
 }
 
-- (void)openButtonPressed
-{
-    [self.sideMenuViewController openMenuAnimated:YES completion:nil];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.eventLinkTextField.text = @"https://www.facebook.com/events/250608341802426/";
 }
 
 - (void)didReceiveMemoryWarning

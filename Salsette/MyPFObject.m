@@ -19,8 +19,6 @@ static NSArray *pfLocalisedDescriptions;
 
 @implementation MyPFObject
 
-@dynamic identifier;
-
 +(instancetype)objectWithDictionary:(NSDictionary *)dictionary {
     
     MyPFObject *emptyObject = [self object];
@@ -40,9 +38,28 @@ static NSArray *pfLocalisedDescriptions;
     return [NSString stringWithFormat:@"empty %@",NSStringFromClass([self class])];
 }
 
-+(void)queryForID:(NSNumber *)identifier completion:(void (^)(id obj, NSError *err))block {
++(void)queryForID:(NSString *)identifier completion:(void (^)(id,NSError *))block {
     
-    block (nil,nil);
+    PFQuery *query = [self query];
+    [query whereKey:@"identifier" equalTo:identifier];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (!error) {
+            block(object,nil);
+        } else {
+            block(nil,error);
+        }
+    }];
+}
+
++(void)queryForPFid:(NSString *)identifier completion:(void (^)(id, NSError *))block {
+    PFQuery *query = [self query];
+    [query getObjectInBackgroundWithId:identifier block:^(PFObject *object, NSError *error) {
+        if (!error) {
+            block(object,nil);
+        } else {
+            block(nil,error);
+        }
+    }];
 }
 
 - (id)objectForIndex:(NSIndexPath *)indexPath {

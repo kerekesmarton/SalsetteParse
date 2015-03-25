@@ -388,9 +388,11 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
 
 - (void)addViewController:(UIViewController *)viewController
 {
-    viewController.sideMenuViewController = self;
-    [self addChildViewController:viewController];
-    [viewController didMoveToParentViewController:self];
+    if (viewController) {
+        viewController.sideMenuViewController = self;
+        [self addChildViewController:viewController];
+        [viewController didMoveToParentViewController:self];
+    }    
 }
 
 #pragma mark - Shadow management

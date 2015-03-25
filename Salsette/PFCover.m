@@ -15,7 +15,7 @@ static NSArray *pfLocalisedDescriptions;
 
 @implementation PFCover
 
-@dynamic url;
+@dynamic url,size;
 
 +(instancetype)objectWithURL:(NSString *)url identifier:(NSString *)identifier{
     
@@ -74,29 +74,6 @@ static NSArray *pfLocalisedDescriptions;
 -(NSArray *)descriptionDataSourceCount {
     
     return @[pfLocalisedDescriptions];
-}
-
-+ (void)queryForID:(NSString *)identifier completion:(void (^)(id, NSError *))block {
-    
-    PFQuery *query = [self query];
-    [query whereKey:@"identifier" equalTo:identifier];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            
-            if (objects.count > 0) {
-                
-                PFCover *cover = [objects firstObject];
-                [cover fetchIfNeeded];
-                block(cover,nil);
-            } else {
-                block(nil,nil);
-            }
-            
-        } else {
-            block(nil,error);
-        }
-    }];
 }
 
 @end
