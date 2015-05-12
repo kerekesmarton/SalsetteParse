@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+extern const CGFloat DefaultTableViewCellMinHeight;
+extern const CGRect DefaultTableViewCellTitleRect;
+extern const CGRect DefaultTableViewCellDetailRect;
 
 @interface DefaultTableViewCell : UITableViewCell
 

@@ -15,6 +15,9 @@
 #import "PFCover.h"
 #import "PFDanceStyle.h"
 #import "PFArtistList.h"
+#import "PFClassList.h"
+#import "PFClass.h"
+#import "PFClassRoom.h"
 
 static NSArray *fbEventGraphKeys;
 
@@ -23,16 +26,13 @@ static NSArray *fbLocalisedDescriptions;
 static NSArray *pfProperties;
 static NSArray *pfLocalisedDescriptions;
 
-@implementation PFEvent {
-    
-    BOOL didComplete;
-}
+@implementation PFEvent
 
 @dynamic name,longDesc,coverPhoto,venue,location,owner,startTime,endTime,timeZone,attending,maybe,ticketURI;
 
 @dynamic artists,mainStyle,secondaryStyle;
 
-@dynamic pfUser,venueID,ownerID,coverID,mainStyleID,secondStyleID;
+@dynamic pfUser,venueID,ownerID,coverID,mainStyleID,secondStyleID,classes;
 
 +(PFEvent *)eventWithGraphObject:(FBGraphObject *)graph {
     
@@ -117,6 +117,8 @@ static NSArray *pfLocalisedDescriptions;
     event.secondaryStyle = [PFDanceStyle objectWithStyle:DanceStyleUndefined identifier:secondID];
     event.secondStyleID = secondID;
     
+    event.classes = [PFClassList objectWithIdentifier:event.identifier];
+    
     return event;
 }
 
@@ -145,10 +147,10 @@ static NSArray *pfLocalisedDescriptions;
         fbLocalisedDescriptions = @[@"Name", @"Description", @"Location",@"Venue",@"Starts at",@"Ends at", @"Tickets"];
     }
     if (!pfProperties) {
-        pfProperties = @[@"artists", @"mainStyle", @"secondaryStyle", @"coverPhoto"];
+        pfProperties = @[@"artists", @"classes",@"mainStyle", @"secondaryStyle", @"coverPhoto"];
     }
     if (!pfLocalisedDescriptions) {
-        pfLocalisedDescriptions = @[@"Artists",@"Main Dance Style",@"Second Dance Style", @"Cover Photo"];
+        pfLocalisedDescriptions = @[@"Artists", @"Classes",@"Main Dance Style",@"Second Dance Style", @"Cover Photo"];
     }
     
     [super load];

@@ -9,7 +9,7 @@
 #import "MyPFObject.h"
 
 @class FBGraphObject;
-@class PFOwner,PFVenue,PFCover,PFDanceStyle,PFArtistList;
+@class PFOwner,PFVenue,PFCover,PFDanceStyle,PFArtistList,PFClassList;
 
 @interface PFEvent : MyPFObject
 
@@ -38,7 +38,7 @@
 @property (nonatomic, strong) PFArtistList  *artists;       //artists invited
 @property (nonatomic, strong) PFDanceStyle  *mainStyle;     //main dance style
 @property (nonatomic, strong) PFDanceStyle  *secondaryStyle;//secondary dance style
-
+@property (nonatomic, strong) PFClassList   *classes;       //list of the classes
 
 //references, parse only
 @property (nonatomic, strong) PFUser    *pfUser;        // relationship to fetch for

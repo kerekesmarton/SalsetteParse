@@ -12,6 +12,7 @@
 #import "EditCoverViewController.h"
 #import "EditDanceStyleViewController.h"
 #import "ArtistsListTableViewController.h"
+#import "EditClassesViewController.h"
 
 #import "UIViewController+ActivityIndicator.h"
 #import "UIViewController+Navigation.h"
@@ -138,6 +139,10 @@
             ArtistsListTableViewController *artistList = [[ArtistsListTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
             artistList.object = loadedObject;
             [self.navigationController pushViewController:artistList animated:YES];
+        } else if ([loadedObject isKindOfClass:[PFClassList class]]) {
+            EditClassesViewController *classesEditor = [[EditClassesViewController alloc] init];
+            classesEditor.object = loadedObject;
+            [self.navigationController pushViewController:classesEditor animated:YES];
         } else if ([loadedObject isKindOfClass:[MyPFObject class]]) {
             PFObjectTableViewController *detailViewController = [[PFObjectTableViewController alloc] initWithNibName:NSStringFromClass([PFObjectTableViewController class]) bundle:nil];
             detailViewController.object = loadedObject;

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		10135E141AC1916A00D91EC0 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 10135E131AC1916A00D91EC0 /* UIViewController+Navigation.m */; };
+		106EC6741ACED90800EB45D8 /* PFClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 106EC6731ACED90800EB45D8 /* PFClass.m */; };
+		1079FF0D1ACEE2DF004C1E72 /* PFClassList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1079FF0C1ACEE2DF004C1E72 /* PFClassList.m */; };
+		1079FF101ACEE330004C1E72 /* PFClassRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 1079FF0F1ACEE330004C1E72 /* PFClassRoom.m */; };
+		10CC9EFB1AF0F90A00A683D4 /* EventCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CC9EF91AF0F90A00A683D4 /* EventCollectionViewCell.m */; };
+		10CC9EFC1AF0F90A00A683D4 /* EventCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10CC9EFA1AF0F90A00A683D4 /* EventCollectionViewCell.xib */; };
 		10CE7EEE1A8E027C0082C138 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CE7EDC1A8E027C0082C138 /* AFHTTPRequestOperation.m */; };
 		10CE7EEF1A8E027C0082C138 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CE7EDE1A8E027C0082C138 /* AFHTTPRequestOperationManager.m */; };
 		10CE7EF01A8E027C0082C138 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CE7EE01A8E027C0082C138 /* AFHTTPSessionManager.m */; };
@@ -17,6 +22,8 @@
 		10CE7EF41A8E027C0082C138 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CE7EE91A8E027C0082C138 /* AFURLRequestSerialization.m */; };
 		10CE7EF51A8E027C0082C138 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CE7EEB1A8E027C0082C138 /* AFURLResponseSerialization.m */; };
 		10CE7EF61A8E027C0082C138 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CE7EED1A8E027C0082C138 /* AFURLSessionManager.m */; };
+		10E6F5441AEFD045005F3BB9 /* UIImageView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E6F5431AEFD045005F3BB9 /* UIImageView+Additions.m */; };
+		10E6F5471AEFE19F005F3BB9 /* EditClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10E6F5461AEFE19F005F3BB9 /* EditClassesViewController.m */; };
 		10EB7B281AC29A9200CFAEFC /* UIViewController+CoverImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 10EB7B271AC29A9200CFAEFC /* UIViewController+CoverImage.m */; };
 		30C949AC1829561000B17666 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C949AB1829561000B17666 /* FacebookSDK.framework */; };
 		30C949AE1829561800B17666 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C949AD1829561800B17666 /* Parse.framework */; };
@@ -119,6 +126,15 @@
 /* Begin PBXFileReference section */
 		10135E121AC1916A00D91EC0 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Navigation.h"; sourceTree = "<group>"; };
 		10135E131AC1916A00D91EC0 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Navigation.m"; sourceTree = "<group>"; };
+		106EC6721ACED90800EB45D8 /* PFClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFClass.h; sourceTree = "<group>"; };
+		106EC6731ACED90800EB45D8 /* PFClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFClass.m; sourceTree = "<group>"; };
+		1079FF0B1ACEE2DF004C1E72 /* PFClassList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFClassList.h; sourceTree = "<group>"; };
+		1079FF0C1ACEE2DF004C1E72 /* PFClassList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFClassList.m; sourceTree = "<group>"; };
+		1079FF0E1ACEE330004C1E72 /* PFClassRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFClassRoom.h; sourceTree = "<group>"; };
+		1079FF0F1ACEE330004C1E72 /* PFClassRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFClassRoom.m; sourceTree = "<group>"; };
+		10CC9EF81AF0F90A00A683D4 /* EventCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCollectionViewCell.h; sourceTree = "<group>"; };
+		10CC9EF91AF0F90A00A683D4 /* EventCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCollectionViewCell.m; sourceTree = "<group>"; };
+		10CC9EFA1AF0F90A00A683D4 /* EventCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCollectionViewCell.xib; sourceTree = "<group>"; };
 		10CE7EDB1A8E027C0082C138 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		10CE7EDC1A8E027C0082C138 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		10CE7EDD1A8E027C0082C138 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -138,6 +154,10 @@
 		10CE7EEB1A8E027C0082C138 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		10CE7EEC1A8E027C0082C138 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		10CE7EED1A8E027C0082C138 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		10E6F5421AEFD045005F3BB9 /* UIImageView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Additions.h"; sourceTree = "<group>"; };
+		10E6F5431AEFD045005F3BB9 /* UIImageView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Additions.m"; sourceTree = "<group>"; };
+		10E6F5451AEFE19F005F3BB9 /* EditClassesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditClassesViewController.h; sourceTree = "<group>"; };
+		10E6F5461AEFE19F005F3BB9 /* EditClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditClassesViewController.m; sourceTree = "<group>"; };
 		10EB7B261AC29A9200CFAEFC /* UIViewController+CoverImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CoverImage.h"; sourceTree = "<group>"; };
 		10EB7B271AC29A9200CFAEFC /* UIViewController+CoverImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CoverImage.m"; sourceTree = "<group>"; };
 		30C949AB1829561000B17666 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -320,6 +340,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10E6F5481AEFE1A7005F3BB9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				10E6F5451AEFE19F005F3BB9 /* EditClassesViewController.h */,
+				10E6F5461AEFE19F005F3BB9 /* EditClassesViewController.m */,
+				10CC9EF81AF0F90A00A683D4 /* EventCollectionViewCell.h */,
+				10CC9EF91AF0F90A00A683D4 /* EventCollectionViewCell.m */,
+				10CC9EFA1AF0F90A00A683D4 /* EventCollectionViewCell.xib */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		3B18CC9719BA01B4007AC8D4 /* Artists */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +392,8 @@
 				3BDAD7F119B739F70086B47F /* MBProgressHUD.m */,
 				3B3012EF19B0C3A500BE67FB /* UIImage+scaled.h */,
 				3B3012F019B0C3A500BE67FB /* UIImage+scaled.m */,
+				10E6F5421AEFD045005F3BB9 /* UIImageView+Additions.h */,
+				10E6F5431AEFD045005F3BB9 /* UIImageView+Additions.m */,
 				3B3012E019B0C3A500BE67FB /* DateHelper.h */,
 				3B3012E119B0C3A500BE67FB /* DateHelper.m */,
 				3BDAD7DF19B710590086B47F /* UIViewController+ActivityIndicator.h */,
@@ -420,6 +454,7 @@
 				3B87531419B5E4D600C4E40C /* Viewer */,
 				3B87532519B6209F00C4E40C /* Misc */,
 				3B3012B519B09FC500BE67FB /* Events */,
+				10E6F5481AEFE1A7005F3BB9 /* Classes */,
 				3B18CC9719BA01B4007AC8D4 /* Artists */,
 				3B59B0E019AF345B00C04A97 /* Layout */,
 				3B691869199CFB1C005629CE /* Account */,
@@ -605,6 +640,12 @@
 				3B9F695219B492DB00230B03 /* MyPFObject.m */,
 				3B3012C319B0A92900BE67FB /* PFEvent.h */,
 				3B3012C419B0A92900BE67FB /* PFEvent.m */,
+				106EC6721ACED90800EB45D8 /* PFClass.h */,
+				106EC6731ACED90800EB45D8 /* PFClass.m */,
+				1079FF0B1ACEE2DF004C1E72 /* PFClassList.h */,
+				1079FF0C1ACEE2DF004C1E72 /* PFClassList.m */,
+				1079FF0E1ACEE330004C1E72 /* PFClassRoom.h */,
+				1079FF0F1ACEE330004C1E72 /* PFClassRoom.m */,
 				3B2430FB19B22B5500B13215 /* PFVenue.h */,
 				3B2430FC19B22B5500B13215 /* PFVenue.m */,
 				3B9F694E19B4916700230B03 /* PFOwner.h */,
@@ -743,6 +784,7 @@
 				3B69186E199CFF0A005629CE /* AccountDetailsTableViewController.xib in Resources */,
 				3B87531E19B6030800C4E40C /* database.png in Resources */,
 				3B88C83F19B07B8500C30457 /* user_female2-128.png in Resources */,
+				10CC9EFC1AF0F90A00A683D4 /* EventCollectionViewCell.xib in Resources */,
 				3B88C83D19B07B6D00C30457 /* user_male-128.png in Resources */,
 				3B88C83419B07A4300C30457 /* login-button-small-pressed.png in Resources */,
 			);
@@ -759,6 +801,7 @@
 				10135E141AC1916A00D91EC0 /* UIViewController+Navigation.m in Sources */,
 				10CE7EF11A8E027C0082C138 /* AFNetworkReachabilityManager.m in Sources */,
 				3B30131419B0C3A500BE67FB /* UIImage+scaled.m in Sources */,
+				1079FF0D1ACEE2DF004C1E72 /* PFClassList.m in Sources */,
 				3B7E13BA19B0C51C00B79325 /* NSArray+Additions.m in Sources */,
 				3B707A0819B8B32B001C8164 /* PFArtistProfile.m in Sources */,
 				3B691733199CD1B5005629CE /* UserDetailsViewController.m in Sources */,
@@ -769,6 +812,7 @@
 				3B9F695019B4916700230B03 /* PFOwner.m in Sources */,
 				3B59B0F019AF386100C04A97 /* SideMenuFactory.m in Sources */,
 				3B3012C119B0A73000BE67FB /* EditEventTableViewController.m in Sources */,
+				10E6F5471AEFE19F005F3BB9 /* EditClassesViewController.m in Sources */,
 				3BD9D3E619F15485003138AD /* ArtistSearchTableViewController.m in Sources */,
 				3B7E13CB19B0C51C00B79325 /* UINavigationItem+Additions.m in Sources */,
 				3BDAD7EB19B724C40086B47F /* EditCoverViewController.m in Sources */,
@@ -779,6 +823,7 @@
 				10CE7EF51A8E027C0082C138 /* AFURLResponseSerialization.m in Sources */,
 				10CE7EEF1A8E027C0082C138 /* AFHTTPRequestOperationManager.m in Sources */,
 				3B69172E199CD1B5005629CE /* LoginViewController.m in Sources */,
+				106EC6741ACED90800EB45D8 /* PFClass.m in Sources */,
 				3B7E13C319B0C51C00B79325 /* NSString+Additions.m in Sources */,
 				3B3012A119B0913D00BE67FB /* TWTMenuViewController.m in Sources */,
 				10CE7EEE1A8E027C0082C138 /* AFHTTPRequestOperation.m in Sources */,
@@ -797,6 +842,7 @@
 				3B9F695719B49A3000230B03 /* ParseIncludes.m in Sources */,
 				3BF777B519CC72D60069F121 /* EditArtistViewController.m in Sources */,
 				10CE7EF01A8E027C0082C138 /* AFHTTPSessionManager.m in Sources */,
+				10E6F5441AEFD045005F3BB9 /* UIImageView+Additions.m in Sources */,
 				3B2430FD19B22B5500B13215 /* PFVenue.m in Sources */,
 				3B7E13CA19B0C51C00B79325 /* UIImage+Additions.m in Sources */,
 				3B7E13C819B0C51C00B79325 /* UIColor+Additions.m in Sources */,
@@ -804,6 +850,7 @@
 				3BDAD7E419B71E8C0086B47F /* PFCover.m in Sources */,
 				10CE7EF31A8E027C0082C138 /* AFURLConnectionOperation.m in Sources */,
 				3B7E13BF19B0C51C00B79325 /* NSDictionary+SKJSONString.m in Sources */,
+				10CC9EFB1AF0F90A00A683D4 /* EventCollectionViewCell.m in Sources */,
 				3B7E13CC19B0C51C00B79325 /* UIScrollView+Additions.m in Sources */,
 				3B691723199CD1B5005629CE /* AppDelegate.m in Sources */,
 				3B59B0E919AF346B00C04A97 /* TWTMainViewController.m in Sources */,
@@ -815,6 +862,7 @@
 				3B59B0F319AF387000C04A97 /* SideMenuItem.m in Sources */,
 				3B69173A199CD339005629CE /* ParseManager.m in Sources */,
 				3B7E13C219B0C51C00B79325 /* NSObject+Additions.m in Sources */,
+				1079FF101ACEE330004C1E72 /* PFClassRoom.m in Sources */,
 				3B49AB5819B8924100155425 /* ImageDataManager.m in Sources */,
 				3B59B0E719AF346B00C04A97 /* TWTSideMenuViewController.m in Sources */,
 				3BD9D3DF19F139C4003138AD /* ArtistsListTableViewController.m in Sources */,

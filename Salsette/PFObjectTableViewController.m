@@ -53,7 +53,6 @@
     return 20.0f;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -69,6 +68,24 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+    id obj = [self.object objectForIndex:indexPath];
+    if (!obj) {
+        return DefaultTableViewCellMinHeight;
+    }
+    
+    if ([obj isKindOfClass:[NSString class]])  {
+        return MAX([NSString sizeForString:obj thatFitsSize:DefaultTableViewCellDetailRect.size].height, DefaultTableViewCellMinHeight);
+    }
+    
+    if ([obj isKindOfClass:[MyPFObject class]] && [(MyPFObject *)obj isDataAvailable]) {
+        return MAX([NSString sizeForString:[(MyPFObject *)obj shortDesc] thatFitsSize:DefaultTableViewCellDetailRect.size].height, DefaultTableViewCellMinHeight);
+    }
+    return DefaultTableViewCellMinHeight;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -122,6 +139,9 @@
     
     if ([obj isKindOfClass:[NSString class]]) {
         cell.detailLabel.text = obj;
+        CGRect frame = DefaultTableViewCellDetailRect;
+        frame.size.height = MAX([NSString sizeForString:obj thatFitsSize:DefaultTableViewCellDetailRect.size].height, DefaultTableViewCellMinHeight);
+        cell.detailLabel.frame = frame;
     } else if ([obj isKindOfClass:[NSNumber class]]) {
         cell.detailLabel.text = [obj stringValue];
     } else if ([obj isKindOfClass:[PFGeoPoint class]]) {
@@ -136,7 +156,14 @@
     } else if ([obj isKindOfClass:[MyPFObject class]]) {
                 
         [(MyPFObject *)obj fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+            
+            [self.tableView beginUpdates];
+            [self.tableView endUpdates];
+            
             cell.detailLabel.text = [obj shortDesc];
+            CGRect frame = DefaultTableViewCellDetailRect;
+            frame.size.height = MAX([NSString sizeForString:[obj shortDesc] thatFitsSize:DefaultTableViewCellDetailRect.size].height, DefaultTableViewCellMinHeight);
+            cell.detailLabel.frame = frame;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }];
     }

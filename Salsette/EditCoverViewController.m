@@ -67,6 +67,8 @@
     [self scaleImageView:scrollView];
 }
 
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [self selectImage];

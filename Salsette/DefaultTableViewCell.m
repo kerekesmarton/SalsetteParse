@@ -8,6 +8,10 @@
 
 #import "DefaultTableViewCell.h"
 
+const CGRect DefaultTableViewCellTitleRect = { { 0.0f, 0.0f }, { 120.0f, 44.0f } };
+const CGRect DefaultTableViewCellDetailRect = { { 130.0f, 0.0f }, { 165.0f, 44.0f } };
+const CGFloat DefaultTableViewCellMinHeight = 44.0f;
+
 @implementation DefaultTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -16,16 +20,18 @@
     if (self) {
         // Initialization code
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, 120.0f, 44.0f)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:DefaultTableViewCellTitleRect];
         titleLabel.tag = 1; // We use the tag to set it later
         titleLabel.textAlignment = NSTextAlignmentRight;
         titleLabel.font = [UIFont boldSystemFontOfSize:13.0f];
         titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.numberOfLines = 0;
         
-        UILabel *dataLabel = [[UILabel alloc] initWithFrame:CGRectMake( 130.0f, 0.0f, 165.0f, 44.0f)];
+        UILabel *dataLabel = [[UILabel alloc] initWithFrame:DefaultTableViewCellDetailRect];
         dataLabel.tag = 2; // We use the tag to set it later
         dataLabel.font = [UIFont systemFontOfSize:15.0f];
         dataLabel.backgroundColor = [UIColor clearColor];
+        dataLabel.numberOfLines = 0;
         
         [self.contentView addSubview:titleLabel];
         [self.contentView addSubview:dataLabel];

@@ -17,6 +17,9 @@
 #import "PFArtistProfile.h"
 #import "PFArtistGroupProfile.h"
 #import "PFArtistList.h"
+#import "PFClassList.h"
+#import "PFClass.h"
+#import "PFClassRoom.h"
 
 #import "PFUser+Additions.h"
 

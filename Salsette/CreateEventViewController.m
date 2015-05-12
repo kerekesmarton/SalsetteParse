@@ -31,7 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.eventLinkTextField.text = @"https://www.facebook.com/events/250608341802426/";
+    self.eventLinkTextField.text = @"https://www.facebook.com/events/1380580945601721/";
 }
 
 - (void)didReceiveMemoryWarning

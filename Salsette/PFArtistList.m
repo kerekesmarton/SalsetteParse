@@ -18,10 +18,7 @@ static NSArray *fbLocalisedDescriptions;
 static NSArray *pfProperties;
 static NSArray *pfLocalisedDescriptions;
 
-@implementation PFArtistList {
-    int completeCount;
-}
-
+@implementation PFArtistList 
 
 @dynamic artists;
 
@@ -61,7 +58,7 @@ static NSArray *pfLocalisedDescriptions;
         
     }
     
-    return [NSString stringWithFormat:@"ArtistList with identifiers: %@", list];
+    return [NSString stringWithFormat:@"%@",list];    
 }
 
 -(NSArray *)dataSourceCount {

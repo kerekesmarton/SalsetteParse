@@ -30,4 +30,5 @@
     #import "UIApplication+Additions.h"
     #import "UINavigationItem+Additions.h"
     #import "NSObject+Additions.h"
+    #import "UIImageView+Additions.h"
 #endif

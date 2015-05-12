@@ -24,5 +24,6 @@
 
 + (NSString *)randomStringWithLength:(NSInteger)length;
 + (NSString*)stringWithElements:(NSArray*)elements;
++ (CGSize)sizeForString:(NSString *)string thatFitsSize:(CGSize)size;
 
 @end

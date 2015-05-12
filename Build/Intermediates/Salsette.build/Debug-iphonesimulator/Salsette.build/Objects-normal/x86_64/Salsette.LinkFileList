@@ -2,6 +2,7 @@
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/UIViewController+Navigation.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/AFNetworkReachabilityManager.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/UIImage+scaled.o
+/Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/PFClassList.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/NSArray+Additions.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/PFArtistProfile.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/UserDetailsViewController.o
@@ -22,6 +23,7 @@
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/AFURLResponseSerialization.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/AFHTTPRequestOperationManager.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/LoginViewController.o
+/Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/PFClass.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/NSString+Additions.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/TWTMenuViewController.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/AFHTTPRequestOperation.o
@@ -40,6 +42,7 @@
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/ParseIncludes.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/EditArtistViewController.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/AFHTTPSessionManager.o
+/Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/UIImageView+Additions.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/PFVenue.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/UIImage+Additions.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/UIColor+Additions.o
@@ -58,6 +61,7 @@
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/SideMenuItem.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/ParseManager.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/NSObject+Additions.o
+/Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/PFClassRoom.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/ImageDataManager.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/TWTSideMenuViewController.o
 /Users/mkerekes/Documents/#Work/Salsette/Build/Intermediates/Salsette.build/Debug-iphonesimulator/Salsette.build/Objects-normal/x86_64/ArtistsListTableViewController.o

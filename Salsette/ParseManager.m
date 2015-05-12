@@ -36,6 +36,9 @@
     [PFArtistProfile load];
     [PFArtistGroupProfile load];
     [PFArtistList load];
+    [PFClassList load];
+    [PFClass load];
+    [PFClassRoom load];
     
     [Parse setApplicationId:@"jmtHBjv2Fkz6gDrq63ntDz22bhccJy7aWVv3ulyN" clientKey:@"juDQE9HtWBOZkMOeKQpiboVo9wuflH7McJWtO0gM"];
     

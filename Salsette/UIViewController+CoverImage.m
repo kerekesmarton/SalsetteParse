@@ -42,6 +42,15 @@ static void *imgViewOffset;
     objc_setAssociatedObject(self, &imgViewOffset, NSStringFromCGSize(initialSize), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y < 0) {
+        self.imageView.frameY = MIN(0, scrollView.contentOffset.y);
+        self.imageView.frameHeight = self.initialSize.height - scrollView.contentOffset.y;        
+        self.imageView.superview.frame = self.imageView.frame;
+    }
+}
+
 -(void)scaleImageView:(UIScrollView *)scrollView {
     
 //    self.imageView.contentScaleFactor = 

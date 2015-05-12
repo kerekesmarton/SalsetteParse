@@ -87,4 +87,7 @@ dependencies: \
   /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFArtistProfile.h \
   /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFArtistGroupProfile.h \
   /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFArtistList.h \
+  /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFClassList.h \
+  /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFClass.h \
+  /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFClassRoom.h \
   /Users/mkerekes/Documents/\#Work/Salsette/Salsette/PFUser+Additions.h

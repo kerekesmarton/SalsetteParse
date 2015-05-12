@@ -101,4 +101,15 @@
                                                                 CFStringConvertNSStringEncodingToEncoding(encoding)));
 }
 
++ (CGSize)sizeForString:(NSString *)string thatFitsSize:(CGSize)size {
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:[UIFont systemFontSize]]};
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(size.width, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:attributes
+                                              context:nil];
+    
+    
+    return rect.size;
+}
 @end
